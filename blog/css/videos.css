@@ -1,0 +1,99 @@
+.blog{
+    border: 2px solid black;
+    border-radius: 6px;
+    float: left;
+    width: 850px;
+    margin-left: 27px;
+    margin-top: 5px;
+    margin-bottom: 27px;
+overflow: hidden;    
+word-wrap: break-word;
+    z-index: 0;
+
+}   
+.del{
+    display: none;
+}
+
+.blog-content{
+   
+
+    margin: 15px;
+   
+
+
+}
+
+.margin-text{
+    padding:  15px;
+}
+.margin-text:hover{
+    background-color: gray;
+}
+
+.playlist-content{
+    width: 100%;
+    align-items: center;
+    z-index: 0;
+    height: auto;
+}
+.playlist{
+
+    border: 1px solid grey;
+    border-radius: 2px;
+    width: 25.8%;
+    height: 575px;
+    overflow-y: auto;
+    display: flex;
+    float: right;
+    z-index: 0;
+}
+.footer-video{
+    
+        background-color: var(--main-bg-color);
+        display: block;
+       align-items: center;
+       text-align: center;
+       align-self: center;
+        color: white;
+         bottom: 0;     
+         left: 0;
+         right: 0;
+         height: 70px;
+         width: 100%;
+        
+}
+      
+     
+      
+     .iblog{
+
+        margin: auto;
+        width: 400px;
+        text-align:center;
+        color:#ffffff;
+     }
+
+    
+     
+     .playlist-text-color{
+         color: rgb(31, 28, 28);
+        
+     }
+      
+     /* .playlist-content :hover{
+        background-color: gray;
+        cursor: pointer;         
+     } */
+      .hvtext :hover{
+
+        background-color: rgb(153, 153, 153);
+        
+        
+
+      }
+      .hvtext{
+          margin-bottom: 0%;
+      }
+
+
