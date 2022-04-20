@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="css/videos.css">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/blogList.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>iBlog</title>
@@ -22,37 +22,9 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
 <body>
-<nav style="margin-top: 51px" class="navigation max-width-1 ">
-        <div class="nav-left">
-            <a style="margin-left: 151px" href="/blog/">
-                <span><img src="img/logo.png" style="max-width: 94px" width="94px" alt=""></span>
-            </a>
-            <ul  style="padding: 0px;margin: 0px;">
-            <ul>
-                <li><a href="http://localhost/blog">Home</a></li>
-                <li><a href="http://localhost/blog/blog.php">Blog</a></li>
-                <li><a href="http://localhost/blog/video.php">Video</a></li>
-                <li><a href="http://localhost/blog/contact.php">Contact</a></li>
-            </ul>
-            </ul>
-        </div>
-        
-        <div style="text-align: center" class="nav-right ">
-            <form action="/blog/search.php" method="get">
-                <input  pattern="[^*()/><\][\\\x22,;.|]+" required class="form-input" type="text" name="search_query" placeholder="Video Search">
-                <button class=" button">Search</button>
-            </form>
+<?php require "includes/header_official.php"; ?>
 
-        </div>
-        <div  style="text-align: center" class="nav-right">
-            <form action="/blog/bsearch.php" method="get">
-                <input  pattern="[^*()/><\][\\\x22,;.|]+" required class="form-input" type="text" name="search_query" placeholder="Article Search">
-                <button class="button">Search</button>
-            </form>
 
-        </div>
-
-    </nav>
 <div class="max-width-1 m-auto">
         <hr>
     </div>
@@ -64,7 +36,7 @@
             <p>My Halloween decorations are staying in the box this year. To be honest, they didn’t make it out of the
                 box last year either. My Halloween spirit has officially been bludgeoned to death by teenagers who no
                 longer care and a persistent October fear of the Northern California wildfires. And speaking of fear,
-                isn’t there more than enough of that going around? Maybe all of us can pretend that Halloween isn’t even
+                isn't there more than enough of that going around? Maybe all of us can pretend that Halloween isn’t even
                 happening this year?</p>
         </div>
         <div style="width:100%" class="content-right">
@@ -159,36 +131,47 @@
                                     $image_url = $row['image_url'];
                                     if(strlen($image_url)>1){
                                         echo' <section>
-                                        <div style="background-color: rgb(238, 238, 238);" class="flex m-2 mb-4 rounded border  flex-wrap -m-4">
-      <div  class="p-4 w-100 lg:w-1/2">
-        <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
-          <img alt="team" class="flex-shrink-0 rounded-lg  object-cover object-center " src="'.$image_url.'">
-          <div class="flex-grow sm:pl-8">
-            <h3 class=" mb-3">'.$title.'</h3>
-            <p class="mb-4">'.$meta_description.'</p>
-            <span class="inline-flex">
-              <a href="/blog/blogpost.php?slug='.$slug.'" class="btn  btn-outline-danger ">Read More</a>
-            </span>
-          </div>
-        </div>
-      </div></div></section>';
+                                        
+                                        <div class="card mb-3" style="max-width: 90vw;">
+                                        <div id="blog-list-content" class="row g-0">
+                                        <div class="col-md-4" style="margin: auto; display: flex; vertical-align: middle;justify-content: center;">
+                                        <img src="'.$image_url.'" class="img-thumbnail-apna rounded-start" alt="Post Thumbnail" >
+                                          </div>
+                                          <div class="col-md-8-apna" style="display: flex;align-items: center;">
+                                            <div class="card-body card-body-apna">
+                                              <h5 class="card-title">'.$title.'</h5>
+                                              <p class="card-text">'.$meta_description.'</p>
+                                              <span class="inline-flex">
+                                              <a href="'.$home_url.'blogpost/'.$slug.'" class="btn  btn-outline-danger ">Read More</a>
+                                            </span>     
+                                          </div>
+                                          </div>
+                                        </div>
+                                      </div>
+</section>';
                             
                                     }else{
 
-                                    echo' <section ><div style="background-color: rgb(238, 238, 238);" class="flex m-2 mb-4 rounded border  flex-wrap -m-4">
-                                    <div  class="p-4 w-100 lg:w-1/2">
-                                      <div class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
-                                        <img alt="team" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src="img/logo.png">
-                                        <div class="flex-grow sm:pl-8">
-                                          <h3 class=" mb-3">'.$title.'</h3>
-                                          <p class="mb-4">'.$meta_description.'</p>
-                                          <span class="inline-flex">
-                                          <a href="/blog/blogpost.php?slug='.$slug.'" class="btn  btn-outline-danger ">Read More</a>
-
-                                          </span>
-                                        </div>
+                                    echo' 
+                                    <section>
+                                    <div class="card mb-3" style="max-width: 90vw;">
+                                    <div id="blog-list-content" class="row g-0">
+                                    <div class="col-md-4" style="margin: auto; display: flex; vertical-align: middle;justify-content: center;">
+                                    <img src="img/logo.png" class="img-thumbnail-apna rounded-start" alt="Post Thumbnail">
                                       </div>
-                                    </div></div></section>';}
+                                      <div class="col-md-8-apna" style="display: flex;align-items: center;">
+                                        <div class="card-body card-body-apna">
+                                          <h5 class="card-title">'.$title.'</h5>
+                                          <p class="card-text">'.$meta_description.'</p>
+                                          <span class="inline-flex">
+                                          <a href="'.$home_url.'blogpost/'.$slug.'" class="btn  btn-outline-danger ">Read More</a>
+                                        </span>     
+                                      </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                        </section>';
+                                    }
                                     
                                     
                                 }

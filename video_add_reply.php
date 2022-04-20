@@ -11,13 +11,13 @@ if (isset($_GET['reply_comment_text'])) {
     
     $reply_comment_id = $_GET['reply_comment_id'];
     $username = $_SESSION['username'];
-    $sql_insert_reply_comment = "INSERT INTO `reply_comments` (`reply_comment_content`, `replied_comment_id` , `username` ) VALUES ('$reply_comment', '$reply_comment_id' ,'$username')";
+    $sql_insert_reply_comment = "INSERT INTO `video_reply_comments` (`reply_comment_content`, `replied_comment_id` , `username` ) VALUES ('$reply_comment', '$reply_comment_id' ,'$username')";
     $result_insert_reply_comment = mysqli_query($conn, $sql_insert_reply_comment);
     
     if ($result_insert_reply_comment) {
 
 
-        $sql_comments = "SELECT * FROM `reply_comments` WHERE `username`='$username'  order by id desc limit 1 ";
+        $sql_comments = "SELECT * FROM `video_reply_comments` WHERE `username`='$username'  order by id desc limit 1 ";
         $result_comments = mysqli_query($conn, $sql_comments);
 
 

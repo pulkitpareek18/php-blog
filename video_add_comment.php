@@ -15,14 +15,14 @@ if(isset($_GET['comment'])){
 
     $username = $_SESSION['username'];
 
-    $sql_insert_comment = "INSERT INTO `comments` (`comment_content`, `comment_post_id` , `username` ) VALUES ('$comment', '$post_id' ,'$username')";
+    $sql_insert_comment = "INSERT INTO `video_comments` (`comment_content`, `comment_post_id` , `username` ) VALUES ('$comment', '$post_id' ,'$username')";
     $result_insert_comment = mysqli_query($conn,$sql_insert_comment);
 
 
     
     
     if($result_insert_comment){
-        $sql_comments = "SELECT * FROM `comments` WHERE `username`='$username'  order by comment_id desc limit 1 ";
+        $sql_comments = "SELECT * FROM `video_comments` WHERE `username`='$username'  order by comment_id desc limit 1 ";
         $result_comments = mysqli_query($conn, $sql_comments);
         echo'{"arr":[';
             while ($row_comments=mysqli_fetch_assoc($result_comments)) {

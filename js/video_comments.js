@@ -1,4 +1,4 @@
-var post_id = document.getElementById("post_id").value; // let comment_text = document.getElementById("commentText").value;
+var post_id = document.getElementById("video_id").value; // let comment_text = document.getElementById("commentText").value;
 
 
 function escape(str) {
@@ -107,7 +107,7 @@ function addReply(comment_id) {
         `replyText${comment_id}`
     ).value;
     $.get(
-        home_url + "add_reply.php", {
+        home_url + "video_add_reply.php", {
             reply_comment_text: escape(reply_comment_text),
             reply_comment_id: comment_id,
         },
@@ -143,7 +143,7 @@ function addReplyNew(comment_id) {
         `replyText${comment_id}`
     ).value;
     $.get(
-        home_url + "add_reply.php", {
+        home_url + "video_add_reply.php", {
             reply_comment_text: escape(reply_comment_text),
             reply_comment_id: comment_id,
         },
@@ -152,7 +152,7 @@ function addReplyNew(comment_id) {
             document.getElementById(`replyForm${comment_id}`).style.display = "none";
 
             $.get(
-                home_url + "show_comment.php", { last_comment_display_post_id: post_id },
+                home_url + "video_show_comment.php", { last_comment_display_post_id: post_id },
 
                 function(data) {
                     document.getElementById("newComment").style.display = "flex";
@@ -174,7 +174,7 @@ function addReplyNew(comment_id) {
 
 function add_comment(text) {
     $.get(
-        home_url + "add_comment.php",
+        home_url + "video_add_comment.php",
 
         {
             comment: escape(text),
@@ -182,7 +182,7 @@ function add_comment(text) {
         },
         function() {
             $.get(
-                home_url + "show_comment.php", { last_comment_display_post_id: post_id },
+                home_url + "video_show_comment.php", { last_comment_display_post_id: post_id },
 
                 function(data) {
                     console.log(data);
@@ -221,7 +221,7 @@ var get_data;
 
 function show_comment() {
     $.get(
-        home_url + "show_comment.php",
+        home_url + "video_show_comment.php",
 
         {
             post_id: `${post_id}`,

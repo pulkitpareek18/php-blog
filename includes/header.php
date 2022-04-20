@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 <html lang="en">
-
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -69,11 +68,11 @@
 
       //login button
 
-          echo '<a class="btn btn-danger mr-1" href="login.php">Login</a>';
+          echo '<a class="btn btn-danger mr-1" href="'.$home_url.'activities/login.php">Login</a>';
 
           //signup button
 
-          echo '<a class="btn btn-danger mr-1" href="signup.php">Signup</a>';
+          echo '<a class="btn btn-danger mr-1" href="'.$home_url.'activities/signup.php">Signup</a>';
 
 
       };
@@ -83,7 +82,7 @@
       //logout button
 
 
-          echo '<a class="btn btn-danger mr-1" href="activities/logout.php">Logout</a>';
+          echo '<a class="btn btn-danger mr-1" href="'.$home_url.'activities/logout.php">Logout</a>';
 
 
       };

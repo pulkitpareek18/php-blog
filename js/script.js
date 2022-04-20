@@ -1,41 +1,30 @@
 function show_hide() {
-  if (document.getElementById("course_player").style.display == "block") {
-    document.getElementById("show_hide").innerText = "Show Player";
-    document.getElementById("course_player").style.display = "none";
-  } else {
-    document.getElementById("course_player").style.display = "block";
-    document.getElementById("show_hide").innerText = "Hide Player";
-  }
+    if (document.getElementById("course_player").style.display == "block") {
+        document.getElementById("show_hide").innerText = "Show Player";
+        document.getElementById("course_player").style.display = "none";
+    } else {
+        document.getElementById("course_player").style.display = "block";
+        document.getElementById("show_hide").innerText = "Hide Player";
+    }
 }
 
-replies = document.getElementsByClassName("reply");
-Array.from(replies).forEach((element) => {
-  element.addEventListener("click", (e) => {
-    console.log("edit");
-    sno = e.target.id.substr(1);
 
-    if (document.getElementById(`reply${sno}`).style.display == "block") {
-      document.getElementById(`reply${sno}`).style.display = "none";
+
+var home_url = "http://localhost/blog/"
+
+function expandCollapse() {
+    if (document.getElementById("expand-collapse").src == home_url + "img/expand.ico") {
+        document.getElementById("expand-collapse").src = home_url + "img/collapse.ico";
+        document.getElementById("playlist-ki-list").style.display = "block";
+        document.getElementById("playlist").style.height = "100vw"
+
+
     } else {
-      document.getElementById(`reply${sno}`).style.display = "block";
-    }
-  });
-});
+        document.getElementById("expand-collapse").src = home_url + "img/expand.ico";
+        document.getElementById("playlist-ki-list").style.display = "none";
+        document.getElementById("playlist").style.height = "50px"
 
-show_replies = document.getElementsByClassName("show_replies");
-Array.from(show_replies).forEach((element) => {
-  element.addEventListener("click", (e) => {
-    console.log("edit ");
-    sno = e.target.id.substr(6);
 
-    if (
-      document.getElementById(`replies_container${sno}`).style.display ==
-      "block"
-    ) {
-      document.getElementById(`replies_container${sno}`).style.display = "none";
-    } else {
-      document.getElementById(`replies_container${sno}`).style.display =
-        "block";
     }
-  });
-});
+
+}

@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/utils.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/contact.css">
     <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="css/videos.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
+
     <title>iBlog - Heaven for bloggers</title>
 </head>
 <style>
@@ -16,6 +18,8 @@
 
     </style>
     <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+    <body>
+
 <?php  
 
 include "dbconnect.php";
@@ -50,45 +54,18 @@ if(isset($_POST['name'])){
    }
 }
 
-
+require "includes/header_official.php";
 ?>
 
-<body>
     
-<nav style="margin-top: 51px" class="navigation max-width-1 ">
-        <div class="nav-left">
-            <a style="margin-left: 151px" href="/">
-                <span><img src="img/logo.png" width="94px" alt=""></span>
-            </a>
-            <ul style="padding: 0px;margin: 0px;">
-            <ul>
-                <li><a href="http://localhost/blog">Home</a></li>
-                <li><a href="http://localhost/blog/">Blog</a></li>
-                <li><a href="http://localhost/blog/video.php">Video</a></li>
-                <li><a href="http://localhost/blog/contact.php">Contact</a></li>
-            </ul>
-            </ul>
-        </div>
-        
-        <div style="text-align: center" class="nav-right ">
-            <form action="/blog/search.php" method="get">
-                <input  pattern="[^*()/><\][\\\x22,;.|]+" required class="form-input" type="text" name="search_query" placeholder="Video Search">
-                <button class=" button">Search</button>
-            </form>
 
-        </div>
-        <div  style="text-align: center" class="nav-right">
-            <form action="/blog/bsearch.php" method="get">
-                <input  pattern="[^*()/><\][\\\x22,;.|]+" required class="form-input" type="text" name="search_query" placeholder="Article Search">
-                <button class="button">Search</button>
-            </form>
-
-        </div>
-
-    </nav>
     <div class="max-width-1 m-auto">
         <hr>
     </div>
+
+    <center>
+        <br>
+
     <div class="contact-content font1 max-width-1 m-auto">
         <div class="max-width-1 m-auto mx-1">
             <h2>Feel Free to Contact Us</h2>
@@ -114,8 +91,7 @@ if(isset($_POST['name'])){
         </div>
 
     </div>
- 
-    <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
+    </center>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -128,11 +104,12 @@ if(isset($_POST['name'])){
     crossorigin="anonymous"></script>
 
     <div class="footer-video ">
-        
+
         <br>
-                <p>Copyright &copy; iBlog.com </p>
-            
-            
-            </div>
+        <p>Copyright &copy; iBlog.com </p>
+
+
+    </div>
+  
 </body>
 </html>

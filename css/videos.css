@@ -1,4 +1,4 @@
-.blog{
+.blog {
     border: 2px solid black;
     border-radius: 6px;
     float: left;
@@ -6,39 +6,35 @@
     margin-left: 27px;
     margin-top: 5px;
     margin-bottom: 27px;
-overflow: hidden;    
-word-wrap: break-word;
+    overflow: hidden;
+    word-wrap: break-word;
     z-index: 0;
+}
 
-}   
-.del{
+.del {
     display: none;
 }
 
-.blog-content{
-   
-
+.blog-content {
     margin: 15px;
-   
-
-
 }
 
-.margin-text{
-    padding:  15px;
+.margin-text {
+    padding: 15px;
 }
-.margin-text:hover{
+
+.margin-text:hover {
     background-color: gray;
 }
 
-.playlist-content{
+.playlist-content {
     width: 100%;
     align-items: center;
     z-index: 0;
     height: auto;
 }
-.playlist{
 
+.playlist {
     border: 1px solid grey;
     border-radius: 2px;
     width: 25.8%;
@@ -48,52 +44,44 @@ word-wrap: break-word;
     float: right;
     z-index: 0;
 }
-.footer-video{
-    
-        background-color: var(--main-bg-color);
-        display: block;
-       align-items: center;
-       text-align: center;
-       align-self: center;
-        color: white;
-         bottom: 0;     
-         left: 0;
-         right: 0;
-         height: 70px;
-         width: 100%;
-        
+
+.footer-video {
+    background-color: var(--main-bg-color);
+    display: block;
+    align-items: center;
+    text-align: center;
+    align-self: center;
+    color: white;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2px;
+    width: 100%;
+    position: relative;
+    bottom: 0;
 }
-      
-     
-      
-     .iblog{
 
-        margin: auto;
-        width: 400px;
-        text-align:center;
-        color:#ffffff;
-     }
+.iblog {
+    margin: auto;
+    width: 400px;
+    text-align: center;
+    color: #ffffff;
+}
 
-    
-     
-     .playlist-text-color{
-         color: rgb(31, 28, 28);
-        
-     }
-      
-     /* .playlist-content :hover{
+.playlist-text-color {
+    color: rgb(31, 28, 28);
+}
+
+
+/* .playlist-content :hover{
         background-color: gray;
         cursor: pointer;         
      } */
-      .hvtext :hover{
 
-        background-color: rgb(153, 153, 153);
-        
-        
+.hvtext :hover {
+    background-color: rgb(153, 153, 153);
+}
 
-      }
-      .hvtext{
-          margin-bottom: 0%;
-      }
-
-
+.hvtext {
+    margin-bottom: 0%;
+}
