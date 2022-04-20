@@ -1,0 +1,34 @@
+<div class="wholeComment">
+    <div class="img-comment">
+        <img src="http://localhost/blog/img/user.png">
+        <div class="m-2 p-3 comment">
+            <div class="user-date">
+                <p class="username">@f</p>
+                <p class="date">2022-04-19</p>
+            </div>
+            <p class="comment_content">gtest</p>
+        </div>
+        <div><button onclick="replyComment(26)" class="btn btn-danger btn-reply">Reply</button></div>
+    </div>
+
+    <div><button id="replyNumber26" class="replyNumber" onclick="show_replies(26)">View 1 replies</button></div>
+
+
+    <form class="mt-5" id="replyForm26" style="display: none;">
+        <div class="mb-3">
+            <textarea id="replyText26" placeholder="Reply @f" class="form-control" name="comment"></textarea>
+        </div>
+
+        <button type="button" onclick="addReply(26)" class="button">Submit</button>
+    </form>
+    <div class="img-comment reply">
+        <img src="http://localhost/blog/img/user.png">
+        <div class="m-2 p-3 ">
+            <div class="user-date">
+                <p class="username">@f</p>
+                <p class="date">2022-04-19</p>
+            </div>
+            <p class="comment_content">c</p>
+        </div>
+    </div>
+</div>
