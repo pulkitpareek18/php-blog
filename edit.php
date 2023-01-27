@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $meta_description = $_POST["descriptionEdit"];
         $meta_keywords = $_POST["keywordsEdit"];
         $url = $_POST["urlEdit"];
+        $thumbnail_url = $_POST["imageUrlEdit"];
         $url = str_replace("watch?v=" , "embed/" , $url);
 
 
@@ -30,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
        
         
       // Sql query to be executed
-      $sql = "UPDATE `playlist` SET `title` = '$title' , `slug` = '$slug' , `content` = '$content' , `category_id` = '$category' , `category_name` = '$category_name' , `player_url` = '$url' , `meta_description` = '$meta_description' , `meta_keywords` = '$meta_keywords' WHERE `playlist`.`id` = $id";
+      $sql = "UPDATE `playlist` SET `title` = '$title' , `slug` = '$slug' , `content` = '$content' , `category_id` = '$category' , `category_name` = '$category_name' , `player_url` = '$url' , `meta_description` = '$meta_description' , `meta_keywords` = '$meta_keywords' , `thumbnail` = '$thumbnail_url' WHERE `playlist`.`id` = $id";
       $result = mysqli_query($conn, $sql);
       if($result){
         $update = true;
@@ -84,6 +85,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
           aria-describedby="emailHelp">
       </div>
       <div class="form-group">
+        <label for="title">Thumbnail Url</label>
+        <input type="url" value="<?php echo $row['thumbnail']; ?>" class="form-control" name="imageUrlEdit"
+          aria-describedby="emailHelp">
+      </div>
+      <div class="form-group">
         <label for="desc">Content</label>
         <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/decoupled-document/ckeditor.js"></script>
 
@@ -100,13 +106,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 </textarea>
           <script>
             tinymce.init({
-              selector: '#txt',
-              plugins: 'a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-              toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter pageembed permanentpen table',
-              toolbar_mode: 'floating',
-              tinycomments_mode: 'embedded',
-              tinycomments_author: 'Author name',
-            });
+            content_css: "css/design.css",
+            selector: '#txt',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Pulkit Pareek',
+          });
           </script>
 
 

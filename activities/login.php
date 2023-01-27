@@ -1,5 +1,5 @@
 <?php
- include"variables.php" ;
+ include"variables.php";
 
 $login = false;
 $showError = false;
@@ -20,7 +20,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 session_start();
                 $_SESSION['loggedin'] = true;
                 $_SESSION['username'] = $username;
-                header("location: /blog/blog.php");
+                header("location: ../admin/index.php");
             } 
             else{
                 $showError = "Invalid Credentials";
@@ -41,14 +41,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="stylesheet" href="<?php echo $home_url ?>css/design.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+    <link rel="stylesheet" href=".css">
     <title>Login</title>
   </head>
   <body>
-  <?php require 'C:\xampp\htdocs\blog\includes\header.php' ?>
+  <?php include '../includes/header.php' ?>
     <?php
     if($login){
     echo ' <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -70,7 +70,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     <div class="container my-4">
      <h1 class="text-center">Login to our website</h1>
-     <form action="http://localhost/blog/activities/login.php" method="post">
+     <form action="<?php echo $home_url ?>activities/login.php" method="post">
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp">

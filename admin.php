@@ -8,10 +8,7 @@ $delete = false;
 $playlist = false;
 $deleteb = false;
 // Connect to the Database 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "blog";
+include "dbconnect.php";
 
 if (isset($_GET['update_pl'])) {
   $update_pl = $_GET['update_pl'];
@@ -42,13 +39,7 @@ if ($playlist) {
   </button>
 </div>";
 }
-// Create a connection
-$conn = mysqli_connect($servername, $username, $password, $database);
 
-// Die if connection was not successful
-if (!$conn) {
-  die("Sorry we failed to connect: " . mysqli_connect_error());
-}
 
 if (isset($_GET['delete'])) {
   $sno = $_GET['delete'];
@@ -117,6 +108,7 @@ if ($delete_pl) {
 if (isset($_POST['title'])) {
   $title = $_POST["title"];
   $content = $_POST["content"];
+  $thumbnail_url = $_POST["imageUrl"];
   //TO INSERT ANY TYPE OF CONTENT LIKE SOURCE CODE
   $content = mysqli_real_escape_string($conn, $content);
 
@@ -132,7 +124,7 @@ if (isset($_POST['title'])) {
     $cat_name = $row_category['category_name'];
   }
   // Sql query to be executed
-  $sql = "INSERT INTO `playlist` (`title`, `content` , `category_id` , `slug` , `category_name` , `player_url` , `meta_description` , `meta_keywords`) VALUES ('$title', '$content' , '$category' , '$slug' , '$cat_name' , '$url' , '$meta_description' , '$meta_keywords')";
+  $sql = "INSERT INTO `playlist` (`title`, `content` , `category_id` , `slug` , `category_name` , `player_url` , `meta_description` , `meta_keywords` , `thumbnail`) VALUES ('$title', '$content' , '$category' , '$slug' , '$cat_name' , '$url' , '$meta_description' , '$meta_keywords' , '$thumbnail_url')";
   $result = mysqli_query($conn, $sql);
 
 
@@ -177,7 +169,8 @@ if (isset($_POST['title_Blog'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="css/videos.css">
 
@@ -221,7 +214,8 @@ if (isset($_POST['title_Blog'])) {
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/blog/admin.php"><img src="/blog/img/logo.png" height="51px" alt=""></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -297,8 +291,13 @@ if ($update) {
       <input type="url" class="form-control" name="url" aria-describedby="emailHelp">
     </div>
     <div class="form-group">
+      <label for="title">Thumbnail Url</label>
+      <input type="url" class="form-control" name="imageUrl" aria-describedby="emailHelp">
+    </div>
+    <div class="form-group">
       <label for="desc">Content</label>
-      <script src="https://cdn.tiny.cloud/1/nx0uoh7aaxh6tv2scp44nyotk4lpnwkuqva8pkyhinqvqafu/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+      <script src="https://cdn.tiny.cloud/1/nx0uoh7aaxh6tv2scp44nyotk4lpnwkuqva8pkyhinqvqafu/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
       </head>
 
 
@@ -338,12 +337,14 @@ if ($update) {
     </select>
     <div class="form-group">
       <label for="title">Meta Description</label>
-      <textarea type="text" rows="5" class="form-control p-0" name="meta_description" aria-describedby="emailHelp"></textarea>
+      <textarea type="text" rows="5" class="form-control p-0" name="meta_description"
+        aria-describedby="emailHelp"></textarea>
     </div>
 
     <div class="form-group">
       <label for="title">Meta Keywords</label>
-      <textarea type="text" rows="3" class="form-control p-0" name="meta_keywords" aria-describedby="emailHelp"></textarea>
+      <textarea type="text" rows="3" class="form-control p-0" name="meta_keywords"
+        aria-describedby="emailHelp"></textarea>
     </div>
 
 
@@ -396,12 +397,14 @@ if ($update) {
 
     <div class="form-group">
       <label for="title">Meta Description</label>
-      <textarea type="text" rows="5" class="form-control p-0" name="meta_description_Blog" aria-describedby="emailHelp"></textarea>
+      <textarea type="text" rows="5" class="form-control p-0" name="meta_description_Blog"
+        aria-describedby="emailHelp"></textarea>
     </div>
 
     <div class="form-group">
       <label for="title">Meta Keywords</label>
-      <textarea type="text" rows="3" class="form-control p-0" name="meta_keywords_Blog" aria-describedby="emailHelp"></textarea>
+      <textarea type="text" rows="3" class="form-control p-0" name="meta_keywords_Blog"
+        aria-describedby="emailHelp"></textarea>
     </div>
 
 
@@ -533,13 +536,13 @@ if ($update) {
                 </div></form></div></td>
                   </tr>";
         echo '<script>
-                    function popup' . $row['category_id'] . '() {
-                      document.getElementById("del' . $row['category_id'] . '").style.display = "block";
-                    }
-                    function cancel' . $row['category_id'] . '() {
-                      document.getElementById("del' . $row['category_id'] . '").style.display = "none";
-                    }
-                  </script>';
+          function popup' . $row['category_id'] . '() {
+            document.getElementById("del' . $row['category_id'] . '").style.display = "block";
+          }
+          function cancel' . $row['category_id'] . '() {
+            document.getElementById("del' . $row['category_id'] . '").style.display = "none";
+          }
+        </script>';
       }
 
       ?>
@@ -639,9 +642,9 @@ if ($update) {
     </table>
   </div>
 
+
   <div class="container my-4">
     <h2>All Videos</h1>
-
       <table class="table" id="myTable5">
         <thead>
           <tr>
@@ -653,10 +656,6 @@ if ($update) {
         </thead>
         <tbody>
           <?php
-
-
-
-
           $sql = "SELECT * FROM `playlist`";
           $result = mysqli_query($conn, $sql);
           $sno = 0;
@@ -666,14 +665,10 @@ if ($update) {
         <th scope='row'>" . $sno . "</th>
         <td>" . $row['title'] . "</td>
         <td>" . $row['category_name'] . "</td>
-        <td> <a class='edit btn btn-sm btn-primary' href='/blog/edit.php?id=" . $row['id'] . "'>Edit</a> <button  id='d" . $row['id'] . "' class='delete btn btn-sm btn-danger'>Delete</button>  </td>
+        <td><a class='edit btn btn-sm btn-primary' href='/blog/edit.php?id=" . $row['id'] . "'>Edit</a> <button id='d" . $row['id'] . "' class='delete btn btn-sm btn-danger'>Delete</button></td>
       </tr>";
           }
-
           ?>
-
-
-
         </tbody>
       </table>
   </div>
@@ -721,42 +716,48 @@ if ($update) {
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
   <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('#myTable').DataTable();
 
     });
   </script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('#myTable1').DataTable();
 
     });
   </script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('#myTable2').DataTable();
 
     });
   </script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('#myTable3').DataTable();
 
     });
   </script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('#myTable4').DataTable();
 
     });
   </script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('#myTable5').DataTable();
 
     });

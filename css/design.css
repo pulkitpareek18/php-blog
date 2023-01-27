@@ -1,0 +1,336 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+@import url('https://fonts.googleapis.com/css2?family=Aboreto&display=swap');
+
+/* ::-webkit-scrollbar {
+    display: none;
+} */
+
+
+.playlist::-webkit-scrollbar {
+    display: none !important;
+}
+
+body::-webkit-scrollbar {
+    display: none !important;
+}
+
+body{
+    width: 100%;
+}
+*{
+    transition: all .3s linear;
+
+}
+
+html {
+    scroll-behavior: smooth;
+    
+  }
+
+body {
+    margin: 0%;
+    height: 100%;
+    font-family: 'Lobster';
+    background-image: linear-gradient(rgb(32, 28, 90), #212121);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Nav Css */
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+nav {
+    position: fixed;
+    width: 100vw;
+    top: 0vw;
+    background-image: linear-gradient(#110f0f, #09054d);
+    background-repeat: no-repeat;
+    height: 5vw;
+    z-index: 100;
+}
+
+#nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#nav img {
+    width: 5vw;
+    margin-left: 0.5vw;
+}
+
+#nav li {
+    margin: 1vw;
+    color: white;
+    font-size: 1.5vw
+}
+
+#nav li:hover {
+    color: burlywood;
+    text-shadow: 0.1vw 0.1vw white;
+}
+
+#navInside {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Video Player Css */
+
+.embed-responsive-item {
+    color: unset;
+    border: none;
+    box-shadow: rgb(66, 64, 64) 0px 0px 330px 7px;
+}
+
+.flex-center {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+iframe {
+    width: 64vw;
+    height: 36vw;
+}
+
+#videoPlayer {
+    margin-top: 7vw;
+}
+
+/* Playlist Items */
+
+.playlist {
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    overflow-x: auto;
+    padding: 2vw;
+    align-items: center;
+    /* margin-top: 2vw; */
+}
+
+
+.playlist li {
+    box-shadow: rgb(8, 12, 87) 0px 0px 1.6vw 0.5vw;
+    margin: 2vw;
+    width: 21vw;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1vw;
+    position: relative;
+}
+
+.playlist li img {
+    width: inherit;
+    border-radius: inherit;
+
+}
+
+.playlist li p {
+    position: absolute;
+    color: blanchedalmond;
+    font-size: 2vw;
+    padding: 4vw;
+    text-align: center;
+}
+
+.playlist li:hover{
+    box-shadow: darkgrey 0px 0px 1.6vw 0.5vw;
+}
+
+.selected{
+    box-shadow: darkgrey 0px 0px 1.6vw 0.5vw !important;
+}
+
+.playlist li p:hover {
+    position: absolute;
+    color: white;
+    font-size: 2vw;
+    padding: 4vw;
+    text-shadow: gray 0.2vw 0.1vw;
+}
+
+h1 {
+    color: rgb(11, 4, 53);
+}
+
+h1:hover {
+    text-shadow: rgb(122, 118, 118) 0.2vw 0.1vw;
+}
+
+.videos{
+    transition: all .3s linear;
+}
+.videos:hover{
+    width: 22vw;
+    transition: all .3s linear;
+}
+
+
+/* Scroll Button CSS */
+.arrowWithPlaylist {
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.scrollBtn img {
+    width: 5vw;
+    padding: 1.6vw;
+}
+
+.scrollBtn {
+    display: flex;
+    position: absolute;
+    z-index: 100;
+    background-color: rgba(30, 30, 34, 0.827);
+    flex-direction: column;
+    justify-content: center;
+}
+
+.scrollBtn:hover{
+    background-color: rgba(51, 51, 56, 0.827);
+}
+.scrollBtn img:hover{
+    padding: 2vw;
+}
+
+#scrollLeft {
+    left: 0;
+    display: none;
+}
+
+#scrollRight {
+    right: 0;
+    display: none;
+}
+
+/* Video Playlist Display Page */
+
+.cardContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 7vw;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    width: 25vw;
+    margin: 2vw;
+    border-radius: 1.1vw;
+    transition: all .3s linear;
+    font-family: "Aboreto";
+    font-weight: bold;
+}
+
+.card img{
+    width: 25vw;
+    border-radius: 1vw;
+    box-shadow: rgb(2, 4, 34) 0px 0px 2.6vw 0.7vw;
+    transition: all .3s linear;
+}
+
+.card img:hover{
+    width: 29vw;
+    border-radius: 1vw;
+    box-shadow: rgba(255, 255, 255, 0.884) 0px 0px 5.6vw 1.1vw;
+    margin-top: -1.8vw;
+
+}
+
+.card p{
+    text-align: center;
+    margin: 1vw;
+    font-size: 2vw;
+    color: #000;
+}
+
+.card p:hover{
+    text-align: center;
+    margin: 1vw;
+    font-size: 2.5vw;
+    color: white !important;
+    text-shadow: rgb(14 13 13) 0.5vw 0.5vw 4px;
+}
+
+.card:hover{
+    width: 26vw;
+    box-shadow: darkgrey 0px 0px 5.6vw 1.1vw !important;
+    padding-top: 0.5vw;
+}
+
+.card a{
+    text-decoration: none;
+}
+
+/* Content Section Css */
+.content{
+    display: block;
+    position: relative;
+    margin-right: 1vw;
+    margin-left: 1vw;
+    margin-top: 2vw;
+    border-radius: 1vw;
+    padding: 2vw;
+    background-image: linear-gradient(rgb(47, 40, 150), #212121);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    box-shadow: darkgrey 0px 0px 5.6vw 1.1vw !important;
+}
+
+
+
+.content a:hover {
+    font-size: large;
+    color: rgb(221, 220, 219);
+    text-shadow: 0vw 0vw 0.1vw rgb(0, 0, 0);
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 0.5vw;
+    background: #000000e3;
+
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #1a1a1ae3;
+    border-radius: 1vw;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(44, 44, 44);
+    border-radius: 1vw;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(87, 87, 87);
+  }

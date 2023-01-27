@@ -74,7 +74,7 @@ if(isset($_GET['search_query'])){
                     $multiply = ($max_post*$multiply_by);
 
                     //counting all matching rows
-                    $sql_num = "SELECT * from `blogpost` where content like '%$search_query%' or title like '%$search_query%'";
+                    $sql_num = "select * from `blogpost` where match (title, content) against ('$search')";
                     $result_num = mysqli_query($conn, $sql_num);
                     $num_total_matched_posts = mysqli_num_rows($result_num);
 
@@ -91,7 +91,7 @@ if(isset($_GET['search_query'])){
                         
 
                             //displaying matching rows with a limit 
-                            $sql = "SELECT * from `blogpost` where content like '%$search_query%' or title like '%$search_query%' limit $multiply , $max_post ";
+                            $sql = "select * from `blogpost` where match (title, content) against ('$search') LIMIT $multiply , $max_post ";
                             $result = mysqli_query($conn, $sql);
                             $total_diff = microtime(true)-$msc;
 

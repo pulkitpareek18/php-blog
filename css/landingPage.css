@@ -1,0 +1,146 @@
+.landingPage{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.landingPage span{
+    font-size: 3vw;
+    position: absolute;
+    color: white;
+    text-align: center;
+    width: max-content;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+nav{
+    background-image: none;
+    box-shadow: inset #212121 0px 0px 12px 5px;
+}
+
+#nav li:hover{
+color: rgb(255, 25, 25);
+}
+
+.landingPage img{
+    width: 100%;
+    z-index: 0;
+}
+
+.landingPage a{
+    padding: 0.5vw;
+    position: absolute;
+    font-size: 4vw;
+    margin-top: 20%;
+    border-radius: 1vw;
+    color: white;
+    background-color: rgba(0, 12, 175, 0.349);
+    box-shadow: black 0.7vw 0.6vw 0.7vw 0;
+    text-align: center;
+    cursor: pointer;
+    z-index: 50;
+}
+
+.landingPage a:hover{
+    color: #ff1010;
+    font-weight: bolder;
+    font-size: 5vw;
+    text-shadow: #ffffff 0.3vw 0.2vw 0.3vw;
+}
+
+/* Responsive Css */
+@media only screen and (max-width: 820px) {
+    html,body{
+        overflow: hidden;
+    }
+
+    .landingPage img{
+        height: 100%;
+        width: auto;
+    }
+
+    .landingPage span{
+        font-size: 7vw;
+    }
+
+    .landingPage a{
+        margin-top: 75%;
+        padding: 2vw;
+        font-size: 7vw;
+        border-radius: 3vw;
+    }
+
+    .landingPage a:hover{
+        color: #ff1010;
+        font-weight: bolder;
+        font-size: 13vw;
+        text-shadow: #ffffff 0.3vw 0.2vw 0.3vw;
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+    html,body{
+        overflow: hidden;
+    }
+
+    .landingPage img{
+        height: 100%;
+        width: auto;
+    }
+
+    .landingPage span{
+        font-size: 7vw;
+    }
+
+    .landingPage a{
+        margin-top: 75%;
+        padding: 2vw;
+        font-size: 7vw;
+        border-radius: 3vw;
+    }
+
+    .landingPage a:hover{
+        color: #ff1010;
+        font-weight: bolder;
+        font-size: 13vw;
+        text-shadow: #ffffff 0.3vw 0.2vw 0.3vw;
+    }
+
+}
+
+@media only screen and (max-width: 412px) {
+    .landingPage img{
+        height: 100%;
+        width: auto;
+    }
+
+    .landingPage span{
+        top: 40%;
+        font-size: 9vw;
+    }
+
+    .landingPage a{
+        margin-top: 15%;
+        padding: 2vw;
+        font-size: 11vw;
+        border-radius: 3vw;
+    }
+
+    .landingPage a:hover{
+        color: #ff1010;
+        font-weight: bolder;
+        font-size: 13vw;
+        text-shadow: #ffffff 0.3vw 0.2vw 0.3vw;
+    }
+
+}
+

@@ -105,7 +105,7 @@ require "includes/header_official.php";
 
     <div class="footer-video ">
 
-        <br>
+    <br>
         <p>Copyright &copy; iBlog.com </p>
 
 

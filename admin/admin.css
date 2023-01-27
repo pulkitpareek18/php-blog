@@ -1,0 +1,51 @@
+.allData{
+    margin-top: 7vw;
+}
+
+nav{
+    z-index: 10000;
+}
+a {
+    text-decoration: none !important;
+}
+
+li {
+    list-style: none;
+}
+
+nav {
+    position: fixed;
+    width: 100vw;
+    top: 0vw;
+    background-image: linear-gradient(#110f0f, #09054d);
+    background-repeat: no-repeat;
+    height: 5vw;
+}
+
+#nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#nav img {
+    width: 5vw;
+    margin-left: 0.5vw;
+}
+
+#nav li {
+    margin: 1vw;
+    color: white;
+    font-size: 1.5vw
+}
+
+#nav li:hover {
+    color: burlywood;
+    text-shadow: 0.1vw 0.1vw white;
+}
+
+#navInside {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

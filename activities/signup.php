@@ -26,6 +26,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $result = mysqli_query($conn, $sql);
             if ($result){
                 $showAlert = true;
+                session_start();
+                $_SESSION['loggedin'] = true;
+                $_SESSION['username'] = $username;
+                header("location: /blog/blog.php");
             }
         }
         else{
