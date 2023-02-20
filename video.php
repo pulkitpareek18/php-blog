@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="<?php echo $home_url ?>css/responsive.css">
     <link rel="shortcut icon" href="<?php echo $home_url ?>img/favicon.ico" type="image/x-icon">
     <title>iBlog-Videos</title>
+    <?php echo $gtag; ?>
 </head>
 
 <body>

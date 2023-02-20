@@ -32,8 +32,8 @@ include "functions.php";
             animation: blinkTextCursor 250ms infinite normal;
         }
     </style>
-
     <title>iBlog</title>
+    <?php echo $gtag; ?>
 </head>
 
 <body>
