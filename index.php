@@ -3,7 +3,6 @@
 <head>
 <?php 
 include "activities/variables.php";
-include "includes/header.php";
 include "dbconnect.php";
 include "functions.php";
 ?>
@@ -14,7 +13,7 @@ include "functions.php";
     <link rel="stylesheet" href="<?php echo $home_url ?>css/design.css">
     <link rel="stylesheet" href="<?php echo $home_url ?>css/responsive.css">
     <link rel="stylesheet" href="<?php echo $home_url ?>css/landingPage.css">
-
+    <link rel="shortcut icon" href="<?php echo $home_url ?>img/favicon.ico" type="image/x-icon">
     <style>
         .wrap {
             height: min-content;
@@ -38,6 +37,7 @@ include "functions.php";
 </head>
 
 <body>
+    <?php include "includes/header.php"; ?>
     <div class="landingPage">
     <span class="anim-typewriter txt-rotate" data-period="2000" data-rotate='[ "Welcome to iBlog.", "You can explore here", "videos.", "articles etc.", "and increase your knowledge" ]'></span>
     <a href="<?php echo $home_url ?>video">Browse Videos</a>
@@ -46,4 +46,3 @@ include "functions.php";
     <script src="js/script.js"></script>
 </body>
 </html>
-<?php  ?>
