@@ -41,25 +41,26 @@ if (isset($_GET['slug'])) {
                 if (isYtUrl($player_url)) {
                     $meta_image = YtLinkToThumbnail($player_url);
                 } else {
-                    $meta_image="";
+                    $meta_image = "";
                 }
             }
         }
-            
-        
+
     }
-        if ($hidden == 1) {
-            // if video hidden then make some variables blank
-            $player_url = "";
-            $player_title = "This video is hidden by Admin";
-        }
-    } else {
-        $player_title = "";
+    
+    if ($hidden == 1) {
+        // if video hidden then make some variables blank
         $player_url = "";
-        $category_id = "";
-        $content = "";
-        $hidden = "";
+        $player_title = "This video is hidden by Admin";
     }
+
+    
+} else {
+    $player_title = "";
+    $player_url = "";
+    $category_id = "";
+    $content = "";
+    $hidden = ""; }
 
 ?>
 <!DOCTYPE html>
@@ -77,18 +78,17 @@ if (isset($_GET['slug'])) {
     <link rel="stylesheet" href="<?php echo $home_url; ?>css/responsive.css">
     <link rel="stylesheet" href="<?php echo $home_url; ?>css/prism.css">
     <style>
-        <?php 
-        if($hidden==0){
-    // If Not Hidden and player url is empty then it is a blogpost so hiding player and playlist will be automatically hidden as there is no category
-    if (empty($player_url)) {
-        echo'
+        <?php
+        if ($hidden == 0) {
+            // If Not Hidden and player url is empty then it is a blogpost so hiding player and playlist will be automatically hidden as there is no category
+            if (empty($player_url)) {
+                echo '
         #videoPlayer{
         display: none;}
         #arrowWithPlaylist{
         margin-top: 2vw;}';
-    } 
-        }?>
-        .pace {
+            }
+        } ?>.pace {
             -webkit-pointer-events: none;
             pointer-events: none;
             -webkit-user-select: none;
@@ -145,16 +145,14 @@ if (isset($_GET['slug'])) {
                 if ($hidden == 0) {
                     // If video is not hidden then displaying all videos in playlist which are not hidden
                     $sql_playlist = "SELECT * FROM `playlist` WHERE `category_id`='$category_id' AND `hidden`=0 order by id ASC";
-                    
                 } else {
                     // If by chance someone got a hidden video link then displaying all videos which are hidden and unhidden, otherwise if we use the above sql query with hidden=0 our video will not appear in playlist
                     $sql_playlist = "SELECT * FROM `playlist` WHERE `category_id`='$category_id' order by id ASC";
-                    
                 }
                 $result_playlist = mysqli_query($conn, $sql_playlist);
 
                 // displaying all those videos in playlist
-                $index = 0;
+                (int)$index = 0;
                 $selected_video_index;
                 while ($row_playlist = mysqli_fetch_assoc($result_playlist)) {
 
@@ -164,6 +162,8 @@ if (isset($_GET['slug'])) {
                     $slug = $row_playlist['slug'];
                     $thumbnail = $row_playlist['thumbnail'];
                     $image_source;
+                    $title_over_image = false;
+
                     if (strlen($title) > 60) {
                         $title = substr($title, 0, 60) . '...';
                     }
@@ -174,23 +174,43 @@ if (isset($_GET['slug'])) {
                             $image_source = YtLinkToThumbnail($video_url);
                         } else {
                             $image_source = $home_url . "img/thumbnail.jpg";
+                            $title_over_image = true;
                         }
                     }
-                    if ($video_id == $player_video_id) {
-                        $selected_video_index = $index;
-                        echo '  <a href="' . $home_url . "play/" . $slug . '">
-                            <li class="videos selected">
-                            <img src="' . $image_source . '" alt="">
-                            <p>' . $title . '</p>
-                            </li></a>';
-                    } else {
+                    // It will display video title below the thumbnail image
+                    if($title_over_image == false){
+                        if ($video_id == $player_video_id) {
+                            $selected_video_index = $index;
+                            echo '  <a href="' . $home_url . "play/" . $slug . '">
+                                <li class="videos selected">
+                                <img src="' . $image_source . '" alt="">
+                                </li><p>' . (int)($index+1) .'. '. $title . '</p></a>';
+                        } else {
 
-                        echo '   <a href="' . $home_url . "play/" . $slug . '">
-                            <li class="videos">
-                            <img src="' . $image_source . '" alt="">
-                            <p>' . $title . '</p>
-                            </li></a>';
+                            echo '   <a href="' . $home_url . "play/" . $slug . '">
+                                <li class="videos">
+                                <img src="' . $image_source . '" alt="">
+                                </li><p>' . (int)($index+1) .'. '. $title . '</p></a>';
+                        }
+                    }else{
+                        // It will display video title on the thumbnail image
+                        if ($video_id == $player_video_id) {
+                            $selected_video_index = $index;
+                            echo '  <a href="' . $home_url . "play/" . $slug . '">
+                                <li class="videos selected">
+                                <img src="' . $image_source . '" alt="">
+                                <p>' . (int)($index+1) .'. '. $title . '</p>
+                                </li></a>';
+                        } else {
+
+                            echo '   <a href="' . $home_url . "play/" . $slug . '">
+                                <li class="videos">
+                                <img src="' . $image_source . '" alt="">
+                                <p>' . (int)($index+1) .'. '. $title . '</p>
+                                </li></a>';
+                        } 
                     }
+
                     $index++;
                 }
             }
@@ -203,27 +223,50 @@ if (isset($_GET['slug'])) {
         </div>
 
     </div>
-    <?php if(!empty($content)){
-        echo'<div class="content container">
-                    '.$content.'
-            </div>';
+    <?php if (!empty($content)) {
+        echo '<div class="content container">
+                <a class="button" href="#bottom">Go to Comments</a>
+                   ' . $content . '
+                </div>
+                <div id="bottom"></div>
+                <br><br>';
     } ?>
+
+    <!-- Comments -->
+    <div class="container content" style="margin-bottom: 0.5vw;" id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    var disqus_config = function () {
+    this.page.url = "<?php echo $home_url; ?>play/<?php echo $slug; ?>";  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = "<?php echo $slug; ?>"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
     
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://iblog-7.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
     <script src="<?php echo $home_url; ?>js/jquery.js"></script>
     <script src="<?php echo $home_url; ?>js/operations.js"></script>
     <script src="<?php echo $home_url; ?>js/prism.js"></script>
     <script>
-    <?php if(!empty($selected_video_index)){
-        if($selected_video_index != 0) {
-            echo'
-            const selectedVideo = document.getElementsByClassName("videos")['.$selected_video_index .'];
+        <?php if (!empty($selected_video_index)) {
+            if ($selected_video_index != 0) {
+                echo '
+            const selectedVideo = document.getElementsByClassName("videos")[' . $selected_video_index . '];
             playlist.scrollLeft = selectedVideo.offsetLeft;';
+            }
         }
-    }
         ?>
-
     </script>
-
+    <!-- Discuss JS -->
+<script id="dsq-count-scr" src="//iblog-7.disqus.com/count.js" async></script>
 </body>
 
 </html>

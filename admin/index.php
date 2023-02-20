@@ -141,11 +141,11 @@ session_start();
       </select>
       <div class="form-group">
         <label for="title">Meta Description</label>
-        <textarea type="text" rows="5" class="form-control p-0" name="meta_description" aria-describedby="emailHelp"></textarea>
+        <textarea type="text" rows="5" class="form-control p-0" name="description" aria-describedby="emailHelp"></textarea>
       </div>
       <div class="form-group">
         <label for="title">Meta Keywords</label>
-        <textarea type="text" rows="3" class="form-control p-0" name="meta_keywords" aria-describedby="emailHelp"></textarea>
+        <textarea type="text" rows="3" class="form-control p-0" name="keywords" aria-describedby="emailHelp"></textarea>
       </div>
       <div class="form-group">
         <label for="title">Slug</label>

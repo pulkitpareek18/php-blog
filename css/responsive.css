@@ -139,3 +139,12 @@
         padding-top: 0.5vw;
     }
   }
+
+  @media only screen and (max-width: 414px) {
+    .card{
+        width: 90vw;
+    }
+    .card img{
+        width: 90vw;
+    }
+  }

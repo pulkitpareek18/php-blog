@@ -8,8 +8,8 @@ lastVideo = document.getElementsByClassName("videos")[lastVideoIndex]
 let initial_position = getOffset(firstVideo).left
 let final_position = getOffset(lastVideo).left
 
-console.log(initial_position)
-console.log(final_position)
+// console.log(initial_position)
+// console.log(final_position)
 
 
   function getOffset(el) {

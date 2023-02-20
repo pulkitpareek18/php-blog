@@ -11,8 +11,8 @@ if (isset($_POST['title'])) {
     $category = $_POST["catid"];
     $slug = $_POST["slug"];
     $url = $_POST["url"];
-    $meta_description = $_POST["meta_description"];
-    $meta_keywords = $_POST["meta_keywords"];
+    $meta_description = $_POST["description"];
+    $meta_keywords = $_POST["keywords"];
     $hidden = $_POST["hidden"];
     $url = str_replace("watch?v=", "embed/", $url);
             if(empty($category)){ 

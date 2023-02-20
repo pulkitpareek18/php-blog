@@ -40,6 +40,13 @@ body {
 
 a {
     text-decoration: none;
+    color: #b93db9;
+    font-size: medium;
+}
+
+p{
+    color: lightsalmon;
+    font-size: large;
 }
 
 li {
@@ -143,23 +150,34 @@ iframe {
 
 }
 
-.playlist li p {
+.playlist a li p {
     position: absolute;
     color: blanchedalmond;
     font-size: 2vw;
     padding: 4vw;
-    text-align: center;
+    text-align: center; 
+    margin: unset;
 }
 
 .playlist li:hover{
     box-shadow: darkgrey 0px 0px 1.6vw 0.5vw;
 }
 
+.playlist a p{
+    margin-left: 2vw;
+    margin-right: 2vw;
+    margin-top: -1vw;
+}
+
+.playlist a p:hover{
+    color: aliceblue;
+}
+
 .selected{
     box-shadow: darkgrey 0px 0px 1.6vw 0.5vw !important;
 }
 
-.playlist li p:hover {
+.playlist a li p:hover {
     position: absolute;
     color: white;
     font-size: 2vw;
@@ -169,6 +187,7 @@ iframe {
 
 h1 {
     color: rgb(11, 4, 53);
+    margin: 2.5vw;
 }
 
 h1:hover {
@@ -301,6 +320,7 @@ h1:hover {
     background-repeat: no-repeat;
     background-attachment: fixed;
     box-shadow: darkgrey 0px 0px 5.6vw 1.1vw !important;
+    overflow: auto;
 }
 
 
@@ -309,6 +329,15 @@ h1:hover {
     font-size: large;
     color: rgb(221, 220, 219);
     text-shadow: 0vw 0vw 0.1vw rgb(0, 0, 0);
+}
+
+.content .button{
+    padding: 1vw;
+    background-color: rgb(51 183 201 / 46%);
+    border: 0px;
+    font-size: large;
+    border-radius: 0.5vw;
+    color: #f28aff;
 }
 
 /* width */
@@ -334,3 +363,4 @@ h1:hover {
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(87, 87, 87);
   }
+
