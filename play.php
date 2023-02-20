@@ -112,7 +112,7 @@ if (isset($_GET['slug'])) {
     </style>
     <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
     <title><?php echo $player_title; ?></title>
-    <link rel="shortcut icon" href="<?php echo $home_url ?>c" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo $home_url ?>img/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
