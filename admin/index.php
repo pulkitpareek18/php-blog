@@ -34,7 +34,8 @@ session_start();
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
   <link rel="stylesheet" href="<?php echo $home_url; ?>css/prism.css">
   <title>iBlog-Admin</title>
-</head>
+  <script src="https://cdn.tiny.cloud/1/nx0uoh7aaxh6tv2scp44nyotk4lpnwkuqva8pkyhinqvqafu/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  </head>
 <?php include "../activities/variables.php" ?>
 <?php include "../dbconnect.php" ?>
 <style>
@@ -112,9 +113,7 @@ session_start();
       </div>
       <div class="form-group">
         <label for="desc">Content</label>
-        <script src="https://cdn.tiny.cloud/1/nx0uoh7aaxh6tv2scp44nyotk4lpnwkuqva8pkyhinqvqafu/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-        </head>
-        <textarea id="txt" name="content" rows="25"></textarea>
+        <textarea id="txt" name="content" rows="25">Write Something Here</textarea>
         <script>
           tinymce.init({
             selector: '#txt',
@@ -157,9 +156,21 @@ session_start();
 </div>
 <hr>
 
+
+
 <!-- Listing Videos -->
 <div class="container my-4">
-    <h2>All Videos</h1>
+<div class='d-flex flex-align-center justify-content-start'>
+    <h1>All Videos</h1>
+    <div class='d-flex flex-align-center justify-content-start'>
+      <button onClick='selectAll(this)'class='delete ml-2 btn btn-sm btn-primary'><div class='d-flex align-items-center flex-center text-center justify-content-start'><img src="../img/checkmark.svg" alt=""><em id="selectText">Select All</em></div></button>
+      <button onClick='hideMultiple()'class='delete ml-2 btn btn-sm btn-secondary'>Hide Multiple</button>
+      <button onClick='unHideMultiple()'class='delete ml-2 btn btn-sm btn-secondary'>Un-Hide Multiple</button>
+      <!-- Button trigger modal -->
+      <button type="button" onclick="changeCategory()" class="btn ml-2 btn-sm btn-info" data-toggle="modal">Change Category</button>
+      <button onClick='deleteMultiple()'class='delete ml-2 btn btn-sm btn-danger'>Delete Multiple</button>
+    </div>
+</div>                        
       <table class="table" id="videoList">
         <thead>
           <tr>
@@ -179,6 +190,7 @@ session_start();
           $text;
           while ($row = mysqli_fetch_assoc($result)) 
           {
+            $delete_function="deleteVideo(".$row['id'].",\"".$row['title']."\")";
             // If Video Not Hidden
             if($row['hidden']==0){
                 $function="hideVideo(".$row['id'].",\"".$row['title']."\")";
@@ -186,16 +198,21 @@ session_start();
                 }else{
                   // If Video Hidden
                   $function="unhideVideo(".$row['id'].",\"".$row['title']."\")";
-                  $text="Un-Hide"; 
+                  $text="Un&#8209;Hide"; 
                 }
                 $sno = $sno + 1;
                 echo "<tr>
-                      <th scope='row'>" . $sno . "</th>
+                      <th class='d-flex flex-align-center justify-content-start' scope='row'>
+                        <div class='form-check'>
+                          <input class='form-check-input multiple_selector' id='".$row['id']."' title='".$row['title']."' type='checkbox' value='1'>
+                        </div>"
+                      . $sno . "</th>
                       <td>" . $row['title'] . "</td>
                       <td>" . $row['category_name'] . "</td>
                       <td><a class='edit btn btn-sm btn-success' target ='_blank' href='".$home_url."play/".$row['slug']."'>Visit</a></td>
                       <td><div class='d-flex flex-align-center justify-content-start'><a class='edit btn btn-sm btn-primary' href='".$home_url."admin/edit.php?id=".$row['id']."'>Edit</a>
-                          <button onClick='".$function."'class='delete ml-2 btn btn-sm btn-danger'>".$text."</button></td></div>
+                          <button onClick='".$function."'class='delete ml-2 btn btn-sm btn-secondary'>".$text."</button>
+                          <button onClick='".$delete_function."'class='delete ml-2 btn btn-sm btn-danger'>Delete</button></div></td>
                       </tr>";
             
           }
@@ -205,9 +222,42 @@ session_start();
   </div>
 
 
-  <script src="admin.js"></script>
-  <script src="<?php echo $home_url; ?>js/prism.js"></script>
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <select placeholder="Choose..." class="custom-select my-1 mr-sm-2" name="catid" id="modalSelector">
+        <?php
+        $sql = "SELECT * FROM `category`";
+        $result = mysqli_query($conn, $sql);
+        while ($row_category = mysqli_fetch_assoc($result)) {
+          $category_name = $row_category['category_name'];
+          $cat_id = $row_category['category_id'];
+          echo '  <option value="' . $cat_id . '">' . $category_name . '</option>';
+        }
+        ?>
+      </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="modalSave" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+<script src="<?php echo $home_url; ?>js/prism.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
       $('#videoList').DataTable();

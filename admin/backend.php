@@ -1,6 +1,11 @@
 <?php
 include "../activities/variables.php";
 include "../dbconnect.php";
+
+/*
+All Video Related Functions
+*/
+
 // Insert Video
 if (isset($_POST['title'])) {
     $title = $_POST["title"];
@@ -39,7 +44,6 @@ if (isset($_POST['title'])) {
 }
 
 // Update Video
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['id_edit'])) {
         // Update the record
@@ -98,7 +102,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-
 // Un-Hide Video
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['unhide'])) {
@@ -108,42 +111,110 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($result) {
             echo "Un-Hidden Successfully";
         }else{
-            echo "We could not update the record successfully" . mysqli_error($conn);
+            echo "We could not Update the record successfully" . mysqli_error($conn);
+        }
+    }
+}
+
+// Multiple Hide Video
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['multipleHide'])) {
+        $data =  json_decode($_POST['multipleHide']);
+        $id_string = ""; //Will make a string containing all id's of rows to hide
+        foreach ($data as $element) {
+            $id_string .= strval($element[0]) . ",";
+        }
+        $id_string = rtrim($id_string, ',');
+        $sql = "UPDATE `playlist` SET `hidden` = 1 WHERE `playlist`.`id` IN ($id_string)";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            echo "Hidden All Successfully";
+        }else{
+            echo "We could not Update the record successfully" . mysqli_error($conn);
+        }
+    }
+}
+
+// Multiple Un-Hide Video
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['multipleUnHide'])) {
+        $data =  json_decode($_POST['multipleUnHide']);
+        $id_string = ""; //Will make a string containing all id's of rows to hide
+        foreach ($data as $element) {
+            $id_string .= strval($element[0]) . ",";
+        }
+        $id_string = rtrim($id_string, ',');
+        $sql = "UPDATE `playlist` SET `hidden` = 0 WHERE `playlist`.`id` IN ($id_string)";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            echo "Un-Hidden All Successfully";
+        }else{
+            echo "We could not Update the record successfully" . mysqli_error($conn);
+        }
+    }
+}
+
+// Delete Video
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['deleteVideo'])) {
+        $id = $_POST['deleteVideo'];
+        $sql = "DELETE FROM `playlist` WHERE `playlist`.`id` = $id";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            echo "Deleted Successfully";
+        }else{
+            echo "We could not Delete the record successfully" . mysqli_error($conn);
+        }
+    }
+} 
+
+// Multiple Delete Video
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['multipleDelete'])) {
+        $data =  json_decode($_POST['multipleDelete']);
+        $id_string = ""; //Will make a string containing all id's of rows to delete
+        foreach ($data as $element) {
+            $id_string .= strval($element[0]) . ",";
+        }
+        $id_string = rtrim($id_string, ',');
+        $sql = "DELETE FROM `playlist` WHERE `playlist`.`id` IN ($id_string)";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            echo "Deleted All Successfully";
+        }else{
+            echo "We could not Delete the record successfully" . mysqli_error($conn);
+        }
+    }
+}
+
+// Change Category
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['changeCategory'])) {
+        $data =  json_decode($_POST['changeCategory']);
+        $categoryId = $_POST['categoryId'];
+        $categoryName = $_POST['categoryName'];
+        $id_string = ""; //Will make a string containing all id's of rows to hide
+        foreach ($data as $element) {
+            $id_string .= strval($element[0]) . ",";
+        }
+        $id_string = rtrim($id_string, ',');
+        $sql = "UPDATE `playlist` SET `category_id` = $categoryId, `category_name` = '$categoryName' WHERE `playlist`.`id` IN ($id_string)";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            echo "Changed Category Successfully";
+        }else{
+            echo "We could not Update the record successfully" . mysqli_error($conn);
         }
     }
 }
 
 
-// Hide Playlist
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['hidePlaylist'])) {
-        $id = $_POST['hidePlaylist'];
-        $sql = "UPDATE `category` SET `hidden` = 1 WHERE `category`.`category_id` = $id";
-        $result = mysqli_query($conn, $sql);
-        if ($result) {
-            echo "Hidden Successfully";
-        }else{
-            echo "We could not update the record successfully" . mysqli_error($conn);
-        }
-    }
-}
-// Un-Hide Video
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['unhidePlaylist'])) {
-        $id = $_POST['unhidePlaylist'];
-        $sql = "UPDATE `category` SET `hidden` = 0 WHERE `category`.`category_id` = $id";
-        $result = mysqli_query($conn, $sql);
-        if ($result) {
-            echo "Un-Hidden Successfully";
-        }else{
-            echo "We could not update the record successfully" . mysqli_error($conn);
-        }
-    }
-}
+
+/*
+All Playlist Related Functions
+*/
 
 // Create Playlist
-
-
 if (isset($_POST['playlist'])) {
     $playlist_name = $_POST['playlist'];
     $playlist_desc = $_POST['description'];
@@ -155,6 +226,109 @@ if (isset($_POST['playlist'])) {
     if ($result_pl) {
       echo "Playlist Created Successfully";
     } else {
-        echo "We could not update the record successfully" . mysqli_error($conn);
+        echo "We could not Update the record successfully" . mysqli_error($conn);
     }
   }
+
+// Hide Playlist
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['hidePlaylist'])) {
+        $id = $_POST['hidePlaylist'];
+        $sql = "UPDATE `category` SET `hidden` = 1 WHERE `category`.`category_id` = $id";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            echo "Hidden Successfully";
+        }else{
+            echo "We could not Update the record successfully" . mysqli_error($conn);
+        }
+    }
+}
+
+// Un-Hide Playlist
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['unhidePlaylist'])) {
+        $id = $_POST['unhidePlaylist'];
+        $sql = "UPDATE `category` SET `hidden` = 0 WHERE `category`.`category_id` = $id";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            echo "Un-Hidden Successfully";
+        }else{
+            echo "We could not Update the record successfully" . mysqli_error($conn);
+        }
+    }
+}
+
+// Multiple Hide Playlists
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['multipleHidePlaylists'])) {
+        $data =  json_decode($_POST['multipleHidePlaylists']);
+        $id_string = ""; //Will make a string containing all id's of rows to hide
+        foreach ($data as $element) {
+            $id_string .= strval($element[0]) . ",";
+        }
+        $id_string = rtrim($id_string, ',');
+        $sql = "UPDATE `category` SET `hidden` = 1 WHERE `category`.`category_id` IN ($id_string)";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            echo "Hidden All Successfully";
+        }else{
+            echo "We could not Update the record successfully" . mysqli_error($conn);
+        }
+    }
+}
+
+// Multiple Un-Hide Playlists
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['multipleUnHidePlaylists'])) {
+        $data =  json_decode($_POST['multipleUnHidePlaylists']);
+        $id_string = ""; //Will make a string containing all id's of rows to hide
+        foreach ($data as $element) {
+            $id_string .= strval($element[0]) . ",";
+        }
+        $id_string = rtrim($id_string, ',');
+        $sql = "UPDATE `category` SET `hidden` = 0 WHERE `category`.`category_id` IN ($id_string)";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            echo "Un-Hidden All Successfully";
+        }else{
+            echo "We could not Update the record successfully" . mysqli_error($conn);
+        }
+    }
+}
+
+// Delete Playlist
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['deletePlaylist'])) {
+        $id = $_POST['deletePlaylist'];
+        $sql = "DELETE FROM `category` WHERE `category`.`category_id` = $id";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            echo "Deleted Successfully";
+        }else{
+            echo "We could not Delete the record successfully" . mysqli_error($conn);
+        }
+    }
+} 
+
+// Multiple Delete Playlists
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['multipleDeletePlaylists'])) {
+        $data =  json_decode($_POST['multipleDeletePlaylists']);
+        $id_string = ""; //Will make a string containing all id's of rows to delete
+        foreach ($data as $element) {
+            $id_string .= strval($element[0]) . ",";
+        }
+        $id_string = rtrim($id_string, ',');
+        $sql = "DELETE FROM `category` WHERE `category`.`category_id` IN ($id_string)";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            echo "Deleted All Successfully";
+        }else{
+            echo "We could not Delete the record successfully" . mysqli_error($conn);
+        }
+    }
+}
+
+
+
+

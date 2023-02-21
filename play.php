@@ -4,19 +4,23 @@ include "dbconnect.php";
 include "activities/variables.php";
 include "functions.php";
 // Creating Some Variables
-$category_id;
-$category_name;
-$player_video_id;
-$player_url;
-$player_title;
-$hidden;
-$content;
-$meta_description;
-$meta_keywords;
-$meta_image;
+$category_id = "";
+$category_name = "";
+$player_video_id = "";
+$player_url = "";
+$player_title = "";
+$hidden = "";
+$content = "";
+$meta_description = "";
+$meta_keywords = "";
+$meta_image = "";
+$go_to_comments = true;
+$hide_comments = false;
+$slug = "";
 // Validating Slug
 if (isset($_GET['slug'])) {
     $slug = $_GET['slug'];
+    $pageSlug = $_GET['slug'];
     // selecting row where slug matches
     $sql = "SELECT * FROM `playlist` WHERE `slug`='$slug'";
     $result = mysqli_query($conn, $sql);
@@ -46,6 +50,14 @@ if (isset($_GET['slug'])) {
             }
         }
 
+    }else{
+        // No Row found, 404 
+        $hide_comments = true;
+        $player_title = "";
+        $player_url = "";
+        $category_id = "";
+        $content = "";
+        $hidden = "";
     }
     
     if ($hidden == 1) {
@@ -56,11 +68,15 @@ if (isset($_GET['slug'])) {
 
     
 } else {
-    $player_title = "";
-    $player_url = "";
-    $category_id = "";
-    $content = "";
-    $hidden = ""; }
+ // Wrong query, searched for something else instead of ?slug= (for ex. ?mug=)
+ // No Row found, 404 
+ $hide_comments = true;
+ $player_title = "";
+ $player_url = "";
+ $category_id = "";
+ $content = "";
+ $hidden = "";
+ }
 
 ?>
 <!DOCTYPE html>
@@ -79,16 +95,18 @@ if (isset($_GET['slug'])) {
     <link rel="stylesheet" href="<?php echo $home_url; ?>css/prism.css">
     <style>
         <?php
-        if ($hidden == 0) {
-            // If Not Hidden and player url is empty then it is a blogpost so hiding player and playlist will be automatically hidden as there is no category
+        if ($hidden == "0") {
+            // If Not Hidden and player url is empty then it is a blogpost so hiding player and playlist will be automatically hidden as there is no category chosen while posting.
             if (empty($player_url)) {
-                echo '
-        #videoPlayer{
-        display: none;}
-        #arrowWithPlaylist{
-        margin-top: 2vw;}';
+
+              $go_to_comments = false;
+              echo '#videoPlayer{
+                    display: none;}
+                    #arrowWithPlaylist{
+                    margin-top: 2vw;}';
             }
-        } ?>.pace {
+        } ?>
+        .pace {
             -webkit-pointer-events: none;
             pointer-events: none;
             -webkit-user-select: none;
@@ -126,7 +144,7 @@ if (isset($_GET['slug'])) {
             <iframe class="flex-center embed-responsive-item" id="player" src="<?php echo $player_url ?>" allowfullscreen></iframe>
             <!-- Video Title -->
 
-            <h1><?php echo $player_title ?></h1>
+            <h1><?php echo $player_title; ?></h1>
         </div>
 
     </div>
@@ -224,24 +242,38 @@ if (isset($_GET['slug'])) {
         </div>
 
     </div>
-    <?php if (!empty($content)) {
-        echo '<div class="content container">
-                <a class="button" href="#bottom">Go to Comments</a>
-                   ' . $content . '
-                </div>
-                <div id="bottom"></div>
-                <br><br>';
-    } ?>
+    <?php 
+    // Printing Content 
+    if (!empty($content) && $go_to_comments) {
+            echo '<div class="content container">
+                    <a class="button" href="#bottom">Go to Comments</a>
+                    ' . $content . '
+                    </div>
+                    <div id="bottom"></div>
+                    <br><br>';
 
-    <!-- Comments -->
-    <div class="container content" style="margin-bottom: 0.5vw;" id="disqus_thread"></div>
-<script>
+    }else if(!empty($content) && !$go_to_comments){
+        echo '<div class="content container">
+        ' . $content . '
+        </div>
+        <div id="bottom"></div>
+        <br><br>';
+    }
+    
+    ?>
+<!-- Comments -->
+  <?php 
+    if(!$hide_comments){
+        echo'<div class="container content" style="margin-bottom: 0.5vw;" id="disqus_thread"></div>'; 
+    }  
+  ?>
+  <script>
     /**
     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
     var disqus_config = function () {
-    this.page.url = "<?php echo $home_url; ?>play/<?php echo $slug; ?>";  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = "<?php echo $slug; ?>"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    this.page.url = "<?php echo $home_url; ?>play/<?php echo $pageSlug; ?>";  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = "<?php echo $pageSlug; ?>"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     
     (function() { // DON'T EDIT BELOW THIS LINE
@@ -267,7 +299,7 @@ if (isset($_GET['slug'])) {
         ?>
     </script>
     <!-- Discuss JS -->
-<script id="dsq-count-scr" src="//iblog-7.disqus.com/count.js" async></script>
+<script id="dsq-count-scr" src="//iblog-7.disqus.com/count.js" async></script> 
 </body>
-
+<!-- version 21-2-2023 -->
 </html>
