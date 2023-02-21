@@ -24,7 +24,7 @@ include "../dbconnect.php";
 
         if ($result) {
             echo "Playlist Updated Successfully";
-            header('Location: index.php');
+            header('Location: playlist.php');
             exit;
         } else {
             echo "We could not update the record successfully" . mysqli_error($conn);
