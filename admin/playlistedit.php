@@ -13,6 +13,15 @@ include "../dbconnect.php";
         $sql = "UPDATE `category` SET `category_name` = '$name' , `category_description` = '$desc' ,  `hidden` = '$hidden' , `image_url` = '$img_url' WHERE `category`.`category_id` = $id";
         $result = mysqli_query($conn, $sql);
         // $row = mysqli_fetch_assoc($result);
+        
+        if ($result) {
+            echo "Playlist Updated Successfully";
+        } else {
+            echo "We could not update the record successfully" . mysqli_error($conn);
+        }
+        $sql = "UPDATE `playlist` SET `category_name` = '$name' WHERE `playlist`.`category_id` = $id";
+        $result = mysqli_query($conn, $sql);
+
         if ($result) {
             echo "Playlist Updated Successfully";
             header('Location: index.php');
