@@ -163,10 +163,10 @@ if (isset($_GET['slug'])) {
                 // fetching all videos related to that category id
                 if ($hidden == 0) {
                     // If video is not hidden then displaying all videos in playlist which are not hidden
-                    $sql_playlist = "SELECT * FROM `playlist` WHERE `category_id`='$category_id' AND `hidden`=0 order by id ASC";
+                    $sql_playlist = "SELECT * FROM `playlist` WHERE `category_id`='$category_id' AND `hidden`=0 order by position ASC";
                 } else {
                     // If by chance someone got a hidden video link then displaying all videos which are hidden and unhidden, otherwise if we use the above sql query with hidden=0 our video will not appear in playlist
-                    $sql_playlist = "SELECT * FROM `playlist` WHERE `category_id`='$category_id' order by id ASC";
+                    $sql_playlist = "SELECT * FROM `playlist` WHERE `category_id`='$category_id' order by position ASC";
                 }
                 $result_playlist = mysqli_query($conn, $sql_playlist);
 

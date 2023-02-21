@@ -436,5 +436,39 @@ function selectAll() {
 
 }
 
+// List Playlist
+function listPlaylist() {
+console.log("clicked")
+
+            let categoryId = $("#modalSelector option:selected").val();
+            console.log(categoryId)
+            $.post("backend.php",
+                {
+                    getPlaylist: categoryId
+                },
+                function (data) {
+                    $("#listData").html(data) 
+                    console.log(data)
+
+                });
+
+}
+
+// Move Playlist
+function movePlaylist(url) {
+console.log("clicked")
+
+            $.get(`backend.php?${url}`,
+                {},
+                function (data) {
+                   
+                       $("#listData").html("") 
+                    $("#listData").html(data) 
+                    listPlaylist()  
+                    
+                    
+                });
+                
+}
 
 

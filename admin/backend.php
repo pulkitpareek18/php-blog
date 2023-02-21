@@ -329,6 +329,119 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
+/*
+Miscellaneous Function
+*/
+if (isset($_POST['getPlaylist'])) {
+    // Retrieve the playlists from the database ordered by position
+    $sql = "SELECT * FROM `playlist` ORDER BY `position` ASC";
+    $result = mysqli_query($conn, $sql);
 
+    // Generate the HTML table using the retrieved data
+    $html = '<table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">S.No</th>
+                  <th scope="col">Playlist Name</th>
+                  <th scope="col">Up</th>
+                  <th scope="col">Down</th>
+                </tr>
+              </thead>
+              <tbody>';
 
+    $num_rows = mysqli_num_rows($result);
+    $sno = 1;
+    while ($row = mysqli_fetch_assoc($result)) {
+        $html .= '<tr>
+                    <th scope="row">' . $sno . '</th>
+                    <td>' . $row['title'] . '</td>';
+
+        // Check if the playlist is not the only row in the table
+        if ($num_rows > 1) {
+            // Check if the playlist is not at the top (position 1)
+            if ($row['position'] != 1) {
+                $html .= '<td><a onclick="movePlaylist(\'id=' . $row['id'] . '&direction=up\')"><i class="fa fa-2x fa-arrow-up"></i></a></td>';
+            } else {
+                // Send the first row to the last position if its up arrow is clicked
+                $html .= '<td><a onclick="movePlaylist(\'id=' . $row['id'] . '&direction=last\')"><i class="fa fa-2x fa-arrow-up"></i></a></td>';
+            }
+
+            // Check if the playlist is not at the bottom (last position)
+            if ($row['position'] != $num_rows) {
+                $html .= '<td><a onclick="movePlaylist(\'id=' . $row['id'] . '&direction=down\')"><i class="fa fa-2x fa-arrow-down"></i></a></td>';
+            } else {
+                // Send the last row to the first position if its down arrow is clicked
+                $html .= '<td><a onclick="movePlaylist(\'id=' . $row['id'] . '&direction=first\')"><i class="fa fa-2x fa-arrow-down"></i></a></td>';
+            }
+        } else {
+            // Only one row, don't show any arrows
+            $html .= '<td></td><td></td>';
+        }
+
+        $html .= '</tr>';
+        $sno++;
+    }
+
+    $html .= '</tbody></table>';
+
+    // Output the generated HTML table
+    echo $html;
+}
+
+// Arrange Playlist
+if (isset($_GET['id']) && isset($_GET['direction'])) {
+    // Get the current position of the selected playlist
+    $sql = "SELECT `position` FROM `playlist` WHERE `id` = " . $_GET['id'];
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $current_position = $row['position'];
+
+    // Get the total number of playlists
+    $sql = "SELECT COUNT(*) AS `count` FROM `playlist`";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $total_playlists = $row['count'];
+
+    // Calculate the new position based on the direction
+    switch ($_GET['direction']) {
+        case 'up':
+            $new_position = $current_position - 1;
+            break;
+        case 'down':
+            $new_position = $current_position + 1;
+            break;
+        case 'first':
+            $new_position = 1;
+            break;
+        case 'last':
+            $new_position = $total_playlists;
+            break;
+    }
+
+    // Make sure the new position is within the bounds of the playlist
+    if ($new_position < 1) {
+        $new_position = $total_playlists;
+    } elseif ($new_position > $total_playlists) {
+        $new_position = 1;
+    }
+
+    // Update the positions of the affected playlists
+    if ($current_position != $new_position) {
+        if ($current_position < $new_position) {
+            $sql = "UPDATE `playlist` SET `position` = (`position` - 1) WHERE `position` > " . $current_position . " AND `position` <= " . $new_position;
+        } else {
+            $sql = "UPDATE `playlist` SET `position` = (`position` + 1) WHERE `position` >= " . $new_position . " AND `position` < " . $current_position;
+        }
+        mysqli_query($conn, $sql);
+
+        $sql = "UPDATE `playlist` SET `position` = " . $new_position . " WHERE `id` = " . $_GET['id'];
+        mysqli_query($conn, $sql);
+    }
+
+    if ($result) {
+        echo "Success";
+    } else {
+        echo "We could not update the record successfully" . mysqli_error($conn);
+    }
+}
 
