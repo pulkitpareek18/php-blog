@@ -330,8 +330,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 /*
-Miscellaneous Function
+Miscellaneous Functions
 */
+
+// Get Playlist
 if (isset($_POST['getPlaylist'])) {
     // Retrieve the playlists from the database ordered by position
     $sql = "SELECT * FROM `playlist` ORDER BY `position` ASC";
@@ -388,7 +390,7 @@ if (isset($_POST['getPlaylist'])) {
     echo $html;
 }
 
-// Arrange Playlist
+// Arrange Video
 if (isset($_GET['id']) && isset($_GET['direction'])) {
     // Get the current position of the selected playlist
     $sql = "SELECT `position` FROM `playlist` WHERE `id` = " . $_GET['id'];
@@ -444,4 +446,56 @@ if (isset($_GET['id']) && isset($_GET['direction'])) {
         echo "We could not update the record successfully" . mysqli_error($conn);
     }
 }
+
+// Arrange Category
+if (isset($_POST['move_up']) || isset($_POST['move_down'])) {
+    $category_id = $_POST['move_up'] ?? $_POST['move_down'];
+    $direction = isset($_POST['move_up']) ? 'up' : 'down';
+
+    // Get the current position of the selected category
+    $sql = "SELECT `position` FROM `category` WHERE `category_id` = " . $category_id;
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $current_position = $row['position'];
+
+    // Get the total number of categories
+    $sql = "SELECT COUNT(*) AS `count` FROM `category`";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $total_categories = $row['count'];
+
+    // Calculate the new position based on the direction
+    if ($direction == 'up') {
+        $new_position = ($current_position == 1) ? $total_categories : ($current_position - 1);
+    } else {
+        $new_position = ($current_position == $total_categories) ? 1 : ($current_position + 1);
+    }
+
+    // Use a transaction to ensure all the updates are performed atomically
+    mysqli_begin_transaction($conn);
+
+    // Update the positions of the affected categories
+    if ($current_position != $new_position) {
+        if ($current_position < $new_position) {
+            $sql = "UPDATE `category` SET `position` = (`position` - 1) WHERE `position` > " . $current_position . " AND `position` <= " . $new_position . " AND `category_id` != " . $category_id;
+        } else {
+            $sql = "UPDATE `category` SET `position` = (`position` + 1) WHERE `position` >= " . $new_position . " AND `position` < " . $current_position . " AND `category_id` != " . $category_id;
+        }
+        mysqli_query($conn, $sql);
+
+        $sql = "UPDATE `category` SET `position` = " . $new_position . " WHERE `category_id` = " . $category_id;
+        mysqli_query($conn, $sql);
+    }
+
+    if (mysqli_commit($conn)) {
+        echo "Success";
+        header('Location: sort_category.php');
+    } else {
+        mysqli_rollback($conn);
+        echo "We could not update the record successfully" . mysqli_error($conn);
+    }
+}
+
+
+
 

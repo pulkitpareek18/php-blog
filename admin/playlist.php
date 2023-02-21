@@ -107,6 +107,7 @@
       <button onClick='hideMultiplePlaylists()' class='delete ml-2 btn btn-sm btn-secondary'>Hide Multiple</button>
       <button onClick='unHideMultiplePlaylists()' class='delete ml-2 btn btn-sm btn-secondary'>Un-Hide Multiple</button>
       <button onClick='deleteMultiplePlaylists()' class='delete ml-2 btn btn-sm btn-danger'>Delete Multiple</button>
+      <button onclick="window.location.href='sort_category.php'" class='delete ml-2 btn btn-sm btn-info'>Sort Category</button>
     </div>
   </div>
   <table class="table" id="categoryList">

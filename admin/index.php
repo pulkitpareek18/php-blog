@@ -169,6 +169,7 @@ session_start();
       <!-- Button trigger modal -->
       <button type="button" onclick="changeCategory()" class="btn ml-2 btn-sm btn-info" data-toggle="modal">Change Category</button>
       <button onClick='deleteMultiple()'class='delete ml-2 btn btn-sm btn-danger'>Delete Multiple</button>
+      <button onclick="window.location.href='sort_playlist.php'" class='delete ml-2 btn btn-sm btn-info'>Sort Video</button>
     </div>
 </div>                        
       <table class="table" id="videoList">

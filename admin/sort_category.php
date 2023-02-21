@@ -63,35 +63,46 @@
     </div>
   </div>
 </nav>
-<div class="allData d-flex flex-column justify-content-center align-items-center">
-    <h1 class="font-weight-bold">Sort Playlist</h1>
-    <hr>
-<body>
-<!-- Modal -->
-    <div class="card w-50">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Select Playlist</h5>
-      </div>
-      <div class="modal-body">
-      <select placeholder="Choose..." class="custom-select my-1 mr-sm-2" name="catid" id="modalSelector">
+
+<div style="margin-top: 14vh;" class="container">
+<form class="m-g mt-5 " method="post" action="backend.php">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">S.No.</th>
+                <th scope="col">Category</th>
+                <th scope="col">Position</th>
+                <th scope="col">Move</th>
+            </tr>
+        </thead>
+        <tbody>
         <?php
-        $sql = "SELECT * FROM `category`";
-        $result = mysqli_query($conn, $sql);
-        while ($row_category = mysqli_fetch_assoc($result)) {
-          $category_name = $row_category['category_name'];
-          $cat_id = $row_category['category_id'];
-          echo '  <option value="' . $cat_id . '">' . $category_name . '</option>';
-        }
+            // Select all categories ordered by position
+            $sql = "SELECT * FROM category ORDER BY position";
+            $result = mysqli_query($conn, $sql);
+            $index = 1;
+            // Loop through each category
+            while ($row = mysqli_fetch_assoc($result)) {
         ?>
-      </select>
-      </div>
-      <div class="modal-footer">
-        <button type="button" onclick="listPlaylist()" class="btn btn-primary">List Playlist</button>
-      </div>
-    </div>
-
-<div id="listData" class="container"></div>
-
+        <tr>
+            <th scope="row"><?php echo $index; ?></th>
+            <td scope="row"><?php echo $row['category_name']; ?></td>
+            <td scope="row"><?php echo $row['position']; ?></td>
+            <td scope="row">
+                <button type="submit" name="move_up" value="<?php echo $row['category_id']; ?>"><i class="fa fa-2x fa-arrow-up"></i></button>
+                <button type="submit" name="move_down" value="<?php echo $row['category_id']; ?>"><i class="fa fa-2x fa-arrow-down"></i></button>
+            </td>
+        </tr>
+        <?php $index++; } ?>
+        </tbody>
+    </table>
+</form></div>
+<style>button {
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+</style>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -99,3 +110,5 @@
    
 
 </html>
+
+
