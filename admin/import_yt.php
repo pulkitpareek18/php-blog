@@ -1,5 +1,5 @@
 <?php
-
+include "backend.php";
 if(isset($_GET["playlist_id"])){
 // Playlist ID
 $playlist_id = $_GET["playlist_id"];
@@ -89,7 +89,8 @@ $playlist_id = $_GET["playlist_id"];
         $category_slug = slugify($first_video_name);// Will use this as category url, this will take user to the first video
 
         // Insert Category Information
-        $sql = "INSERT INTO category (category_name, category_slug, image_url) VALUES ('$playlist_name', '$category_slug', '$thumbnail_url')";
+        $category_position = incrementCategoryPosition();
+        $sql = "INSERT INTO category (category_name, category_slug, image_url, position) VALUES ('$playlist_name', '$category_slug', '$thumbnail_url' , '$category_position')";
 
         mysqli_query($conn, $sql);
 
@@ -116,7 +117,8 @@ $playlist_id = $_GET["playlist_id"];
             continue; //Do Nothing
         } 
         else{
-            $sql = "INSERT INTO playlist (title, category_id, slug, category_name, player_url, thumbnail, content) VALUES ('$title', '$category_id', '$slug', '$category_name', 'https://www.youtube.com/embed/$video_id', '$thumbnail_url', '$description') ON DUPLICATE KEY UPDATE title='$title', category_id='$category_id', slug='$slug', category_name='$category_name', player_url='https://www.youtube.com/embed/$video_id', thumbnail='$thumbnail_url', content='$description'";
+            $new_position = incrementVideoPosition($category_id);
+            $sql = "INSERT INTO playlist (title, category_id, slug, category_name, player_url, thumbnail, content, position) VALUES ('$title', '$category_id', '$slug', '$category_name', 'https://www.youtube.com/embed/$video_id', '$thumbnail_url', '$description', '$new_position') ON DUPLICATE KEY UPDATE title='$title', category_id='$category_id', slug='$slug', category_name='$category_name', player_url='https://www.youtube.com/embed/$video_id', thumbnail='$thumbnail_url', content='$description'";
             mysqli_query($conn, $sql);
         }
         

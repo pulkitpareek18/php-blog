@@ -1,5 +1,5 @@
 <?php
-include "../activities/variables.php";
+include "../includes/variables.php";
 include "../dbconnect.php";
 
 // Get Category Id from Category Table and process position column playlist

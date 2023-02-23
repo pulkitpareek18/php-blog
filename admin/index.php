@@ -1,5 +1,5 @@
 <?php 
-include "../activities/variables.php";
+include "../includes/variables.php";
 session_start();
 
           if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true) {
@@ -36,7 +36,6 @@ session_start();
   <title>iBlog-Admin</title>
   <script src="https://cdn.tiny.cloud/1/nx0uoh7aaxh6tv2scp44nyotk4lpnwkuqva8pkyhinqvqafu/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
   </head>
-<?php include "../activities/variables.php" ?>
 <?php include "../dbconnect.php" ?>
 <style>
         .pace {
@@ -127,7 +126,7 @@ session_start();
       </div>
       <label for="category">Playlist</label>
       <select placeholder="Choose..." class="custom-select my-1 mr-sm-2" name="catid" id="inlineFormCustomSelectPref">
-        <option value=""></option>
+        <option value="">Unlisted</option>
         <?php
         $sql = "SELECT * FROM `category`";
         $result = mysqli_query($conn, $sql);
@@ -244,6 +243,7 @@ session_start();
           echo '  <option value="' . $cat_id . '">' . $category_name . '</option>';
         }
         ?>
+        <option value="">Unlisted</option>
       </select>
       </div>
       <div class="modal-footer">

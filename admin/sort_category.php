@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
     <title>iBlog-Admin</title>
 </head>
-<?php include "../activities/variables.php" ?>
+<?php include "../includes/variables.php" ?>
 <?php include "../dbconnect.php" ?>
 <style>
     .pace {
@@ -86,7 +86,7 @@
         ?>
         <tr>
             <th scope="row"><?php echo $index; ?></th>
-            <td scope="row"><?php echo $row['category_name']; ?></td>
+            <td class="font-weight-bold" scope="row"><?php echo $row['category_name']; ?></td>
             <td scope="row"><?php echo $row['position']; ?></td>
             <td scope="row">
                 <button type="submit" name="move_up" value="<?php echo $row['category_id']; ?>"><i class="fa fa-2x fa-arrow-up"></i></button>

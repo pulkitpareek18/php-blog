@@ -12,7 +12,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
   <title>iBlog-Admin</title>
 </head>
-<?php include "../activities/variables.php" ?>
+<?php include "../includes/variables.php" ?>
 <?php include "../dbconnect.php" ?>
 <style>
   .pace {
@@ -120,7 +120,7 @@
     </thead>
     <tbody>
       <?php
-      $sql = "SELECT * FROM `category`";
+      $sql = "SELECT * FROM `category` ORDER BY position ASC";
       $result = mysqli_query($conn, $sql);
       $sno = 0;
       $function;
@@ -164,11 +164,10 @@
 
 <hr />
 <script src="admin.js"></script>
-
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
 <script>
   $(document).ready(function() {
-    $('categoryList#').DataTable();
+    $('#categoryList').DataTable();
 
   });
 </script>

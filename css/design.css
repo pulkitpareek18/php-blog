@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Lobster');
 @import url('https://fonts.googleapis.com/css2?family=Aboreto&display=swap');
 
+
 /* ::-webkit-scrollbar {
     display: none;
 } */
@@ -64,9 +65,14 @@ nav {
 }
 
 #nav {
+    font-family: 'Lobster';
+    user-select: text !important;
+    transition: all .3s linear;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
 }
 
 #nav img {
@@ -218,7 +224,7 @@ h1:hover {
 .scrollBtn {
     display: flex;
     position: absolute;
-    z-index: 100;
+    z-index: 11;
     background-color: rgba(30, 30, 34, 0.827);
     flex-direction: column;
     justify-content: center;
@@ -226,6 +232,10 @@ h1:hover {
 
 .scrollBtn:hover{
     background-color: rgba(51, 51, 56, 0.827);
+}
+.scrollBtn:active{
+    background-color: rgba(255, 255, 255, 0.637);
+    padding: 1vw;
 }
 .scrollBtn img:hover{
     padding: 2vw;
@@ -364,4 +374,64 @@ h1:hover {
     background: rgb(87, 87, 87);
   }
 
+  /* Sidebar CSS */
 
+  .sidebar{
+    font-family: 'Lobster';
+    user-select: text !important;
+    transition: all .3s linear;
+    position: fixed;
+    display: flex;
+    width: 0vw;
+    height: -webkit-fill-available;
+    top: 0;
+    z-index: 101;
+    background-image: linear-gradient(#110f0f, #09054d);
+    opacity: 0.9;
+    flex-direction: column;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .sidebar img{
+    width: 40vw;
+  }
+
+  .sidebar a li{
+    margin-top: 10vw;
+    font-size: 5vw;
+    color: white;
+  }
+
+  .sidebar a li:hover{
+    color: burlywood;
+    text-shadow: 0.1vw 0.1vw white;
+  }
+
+  @media only screen and (min-width: 768px) {
+
+    .sidebar a li{
+        font-size: 5vw;
+    }
+
+  }
+
+/* Sidebar Open Buttons CSS */
+#openSidebar{
+  color: white;
+  display: none;
+  cursor: pointer;
+}
+
+#closeSidebar{
+    position: relative;
+    margin-right: -47vw;
+    cursor: pointer;
+}
+
+#closeSidebar img{
+    width: 10vw;
+    padding: 1vw;
+}

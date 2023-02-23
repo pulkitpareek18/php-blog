@@ -1,6 +1,7 @@
 <?php // Update Video
-include "../activities/variables.php";
+include "../includes/variables.php";
 include "../dbconnect.php";
+include "backend.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -128,9 +129,10 @@ include "../dbconnect.php";
         <select placeholder="Choose..." class="custom-select my-1 mr-sm-2" name="catid" id="inlineFormCustomSelectPref">
           <option selected value="<?php echo $row['category_id'] ?>"><?php echo $row['category_name'] ?></option>
           <?php
+          //If video unlisted it will not have any category id
           if (empty($row['category_id'])) {
             $sql = "SELECT * FROM `category`";
-          } else {
+          } else { //If video not unlisted
             $selected_category_id = $row['category_id'];
             $sql = "SELECT * FROM `category` where category_id NOT LIKE $selected_category_id";
           }
@@ -141,8 +143,9 @@ include "../dbconnect.php";
             $cat_id = $row_category['category_id'];
             echo '  <option value="' . $cat_id . '">' . $category_name . '</option>';
           }
+          //If video has already a category selected then show the unlisted option at last
           if (!empty($row['category_id'])) {
-            echo '<option value=""></option>';
+            echo '<option value="">Unlisted</option>';
           }
           ?>
         </select>
@@ -164,42 +167,6 @@ include "../dbconnect.php";
   </div>
   <hr>
   <script src="admin.js"></script>
-  <?php // Update Video
-
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['id_edit'])) {
-      // Update the record
-      $id = $_POST["id_edit"];
-      $title = $_POST["title_edit"];
-      $content = $_POST["content"];
-      $content = mysqli_real_escape_string($conn, $content);
-      $slug = $_POST["slug"];
-      $category = $_POST["catid"];
-      $meta_description = $_POST["description"];
-      $meta_keywords = $_POST["keywords"];
-      $url = $_POST["url"];
-      $thumbnail = $_POST["imageUrl"];
-      $url = str_replace("watch?v=", "embed/", $url);
-      $hidden = $_POST["hidden"];
-
-      $sql = "SELECT * FROM `category` where `category_id` = $category";
-      $result = mysqli_query($conn, $sql);
-      $row_category = mysqli_fetch_assoc($result);
-      $category_name = $row_category['category_name'];
-
-
-      // Sql query to be executed
-      $sql = "UPDATE `playlist` SET `title` = '$title' , `slug` = '$slug' , `content` = '$content' , `category_id` = '$category' , `category_name` = '$category_name' , `player_url` = '$url' , `meta_description` = '$meta_description' , `meta_keywords` = '$meta_keywords' , `thumbnail` = '$thumbnail', `hidden` = '$hidden' WHERE `playlist`.`id` = $id";
-      $result = mysqli_query($conn, $sql);
-      if ($result) {
-        echo "Done";
-      } else {
-        echo "We could not update the record successfully" . mysqli_error($conn);
-      }
-    }
-  }
-
-  ?>
 <script src="<?php echo $home_url; ?>js/prism.js"></script>
 </body>
 

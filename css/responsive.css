@@ -1,16 +1,21 @@
   @media only screen and (max-width: 820px) {
+
+    #navInside{
+        display: none;
+    }
+
     iframe{
         width: 100vw;
         height: 57vw;
     }
     
     .videos{
-        width: 74vw !important;
+        width: 30vw !important;
     }
-
     .videos p{
-        font-size: 11vw !important;
+        font-size: 3vw !important;
     }
+    
 
     .scrollBtn img {
         width: 9vw;
@@ -22,15 +27,15 @@
     }
 
     nav {
-        height: 11vw;
+        height: 9vw;
     }
 
     #videoPlayer {
-        margin-top: 9.7vw;
+        margin-top: 9.5vw;
     }
 
     #nav img {
-        width: 11vw;
+        width: 9vw;
     }
 
     .cardContainer{
@@ -43,6 +48,23 @@
         margin-top: 11vw;
     }
 
+    #openSidebar{
+        font-size: 7vw;
+        display: block;
+    }
+
+    #openSidebar:hover{
+        color: burlywood;
+        text-shadow: 0.1vw 0.1vw white;
+    }
+
+    .searchBox , .wrapper input{
+        max-width: 76vw !important;
+        height: 6.5vw !important;
+        font-size: 2.1vw !important;
+    }
+
+    
   }
 
   @media only screen and (max-width: 768px) {
@@ -52,11 +74,11 @@
     }
     
     .videos{
-        width: 74vw !important;
+        width: 30vw !important;
     }
 
     .videos p{
-        font-size: 11vw !important;
+        font-size: 3vw !important;
     }
 
     .scrollBtn img {
@@ -73,7 +95,7 @@
     }
 
     #videoPlayer {
-        margin-top: 9.7vw;
+        margin-top: 9.5vw;
     }
 
     #nav img {
@@ -137,6 +159,12 @@
         width: 52vw;
         box-shadow: darkgrey 0px 0px 5.6vw 1.1vw !important;
         padding-top: 0.5vw;
+    } 
+    
+    .searchBox , .wrapper input{
+        max-width: 79vw !important;
+        height: 6.5vw !important;
+        font-size: 2.1vw !important;
     }
   }
 
@@ -146,5 +174,47 @@
     }
     .card img{
         width: 90vw;
+    }
+    .card:hover{
+        width: 90vw;
+        box-shadow: darkgrey 0px 0px 5.6vw 1.1vw !important;
+        padding-top: 0.5vw;
+    }
+    .card img:hover{
+        width: 90vw;
+        border-radius: 1vw;
+        box-shadow: rgba(255, 255, 255, 0.884) 0px 0px 5.6vw 1.1vw;
+        margin-top: -1.8vw;
+    
+    }
+    .videos{
+        width: 74vw !important;
+    }
+    .videos p{
+        font-size: 11vw !important;
+    }
+    .wrapper a{
+        font-size: small !important;
+    }
+    .searchBox , .wrapper input{
+        max-width: 72vw !important;
+        height: 9.5vw !important;
+        font-size: 3.1vw !important;
+        border-radius: 0.7vw !important;
+    }
+    #videoPlayer {
+        margin-top: 13.5vw;
+    }
+    nav{
+        height: 13vw !important;
+    }
+    #nav img {
+        width: 13vw;
+    }
+    #openSidebar {
+        font-size: 9vw;
+    }
+    .cardContainer{
+        margin-top: 14vw;
     }
   }

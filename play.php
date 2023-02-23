@@ -1,8 +1,8 @@
 <?php
 // Connecting Database
 include "dbconnect.php";
-include "activities/variables.php";
-include "functions.php";
+include "includes/variables.php";
+include "includes/functions.php";
 // Creating Some Variables
 $category_id = "";
 $category_name = "";
@@ -93,6 +93,9 @@ if (isset($_GET['slug'])) {
     <link rel="stylesheet" href="<?php echo $home_url; ?>css/design.css">
     <link rel="stylesheet" href="<?php echo $home_url; ?>css/responsive.css">
     <link rel="stylesheet" href="<?php echo $home_url; ?>css/prism.css">
+    <link rel="stylesheet" href="<?php echo $home_url; ?>includes/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
     <style>
         <?php
         if ($hidden == "0") {
@@ -137,6 +140,23 @@ if (isset($_GET['slug'])) {
 <body>
     <!-- Navbar -->
     <?php include "includes/header.php"; ?>
+    <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <a id="closeSidebar"><img src="<?php echo $home_url ?>img/close-button-icon.svg" alt=""></a>
+    <img src="<?php echo $home_url; ?>img/logo.png" alt="">
+    <a href="">
+      <li>Home</li>
+    </a>
+    <a href="<?php echo $home_url ?>video">
+      <li>Courses</li>
+    </a>
+    <a href="<?php echo $home_url ?>play/terms-and-conditions">
+      <li>Terms & Conditions</li>
+    </a>
+    <a href="<?php echo $home_url ?>play/privacy-policy">
+      <li>Privacy Policy</li>
+    </a>
+  </div>
     <!-- Video Section -->
     <div id="videoPlayer" class="flex-center">
 
@@ -300,6 +320,9 @@ if (isset($_GET['slug'])) {
     </script>
     <!-- Discuss JS -->
 <script id="dsq-count-scr" src="//iblog-7.disqus.com/count.js" async></script> 
+<!-- Some Other JS -->
+<script src="<?php echo $home_url ?>includes/js/script.js"></script>
+<script src="<?php echo $home_url ?>js/jquery.js"></script>
 </body>
-<!-- version 21-2-2023 -->
+<!-- version 24-2-2023 -->
 </html>

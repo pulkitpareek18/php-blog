@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
     <title>iBlog-Admin</title>
 </head>
-<?php include "../activities/variables.php" ?>
+<?php include "../includes/variables.php" ?>
 <?php include "../dbconnect.php" ?>
 <style>
     .pace {
