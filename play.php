@@ -324,5 +324,5 @@ if (isset($_GET['slug'])) {
 <script src="<?php echo $home_url ?>includes/js/script.js"></script>
 <script src="<?php echo $home_url ?>js/jquery.js"></script>
 </body>
-<!-- version 25-2-2023 -->
+<!-- version 24-2-2023 -->
 </html>
