@@ -1,4 +1,5 @@
-<?php // Update Video
+<?php
+include "loginCheck.php";
 include "../includes/variables.php";
 include "../dbconnect.php";
 include "backend.php";

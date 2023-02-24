@@ -27,7 +27,7 @@
   <div class="sidebar" id="sidebar">
     <a id="closeSidebar"><img src="<?php echo $home_url ?>img/close-button-icon.svg" alt=""></a>
     <img src="<?php echo $home_url; ?>img/logo.png" alt="">
-    <a href="">
+    <a href="/">
       <li>Home</li>
     </a>
     <a href="<?php echo $home_url ?>video">

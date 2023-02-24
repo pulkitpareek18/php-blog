@@ -7,7 +7,7 @@ const icon = searchWrapper.querySelector(".icon");
 let linkTag = searchWrapper.querySelector("a");
 let webLink;
 
-let homeUrl = "https://iblog.rf.gd/"
+let homeUrl = "http://localhost/blog/"
 
 // Set up options for fuzzy search
 const options = {

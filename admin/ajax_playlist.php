@@ -1,5 +1,5 @@
 <?php 
-
+include "loginCheck.php";
 include "../dbconnect.php";
     
 // Retrieve the playlists of the specified category from the database ordered by position

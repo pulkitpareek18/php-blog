@@ -1,10 +1,10 @@
 <?php
- include"variables.php" ;
+ include"../includes/variables.php" ;
 
 $showAlert = false;
 $showError = false;
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    include "dbconnect.php";
+    include "../dbconnect.php";
     $username = $_POST["username"];
     $password = $_POST["password"];
     $cpassword = $_POST["cpassword"];
@@ -29,7 +29,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 session_start();
                 $_SESSION['loggedin'] = true;
                 $_SESSION['username'] = $username;
-                header("location: /blog/blog.php");
+                header("location: ".$home_url."video.php");
             }
         }
         else{
@@ -53,7 +53,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>SignUp</title>
   </head>
   <body>
-    <?php require 'C:\xampp\htdocs\blog\includes\header.php' ?>
     <?php
     if($showAlert){
     echo ' <div class="alert alert-success alert-dismissible fade show" role="alert">

@@ -1,10 +1,10 @@
 <?php
- include"variables.php";
+ include "../includes/variables.php";
 
 $login = false;
 $showError = false;
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    include 'dbconnect.php';
+    include '../dbconnect.php';
     $username = $_POST["username"];
     $password = $_POST["password"]; 
     
@@ -20,7 +20,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 session_start();
                 $_SESSION['loggedin'] = true;
                 $_SESSION['username'] = $username;
-                header("location: ../admin/index.php");
+                header("location: ../admin/");
             } 
             else{
                 $showError = "Invalid Credentials";

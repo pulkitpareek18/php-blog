@@ -4,7 +4,7 @@ session_start();
 session_unset();
 session_destroy();
 
-header("location: /blog/activities/login.php");
+header("location: login.php");
 exit;
 
 $gtag = "<!-- Google tag (gtag.js) -->

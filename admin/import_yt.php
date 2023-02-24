@@ -1,4 +1,5 @@
 <?php
+include "loginCheck.php";
 include "backend.php";
 if(isset($_GET["playlist_id"])){
 // Playlist ID

@@ -144,7 +144,7 @@ if (isset($_GET['slug'])) {
   <div class="sidebar" id="sidebar">
     <a id="closeSidebar"><img src="<?php echo $home_url ?>img/close-button-icon.svg" alt=""></a>
     <img src="<?php echo $home_url; ?>img/logo.png" alt="">
-    <a href="">
+    <a href="/">
       <li>Home</li>
     </a>
     <a href="<?php echo $home_url ?>video">
@@ -324,5 +324,5 @@ if (isset($_GET['slug'])) {
 <script src="<?php echo $home_url ?>includes/js/script.js"></script>
 <script src="<?php echo $home_url ?>js/jquery.js"></script>
 </body>
-<!-- version 24-2-2023 -->
+<!-- version 25-2-2023 -->
 </html>

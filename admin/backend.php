@@ -1,4 +1,5 @@
 <?php
+include "loginCheck.php";
 include "../includes/variables.php";
 include "../dbconnect.php";
 
@@ -498,172 +499,53 @@ Miscellaneous Functions
 */
 
 // Get Playlist(Videos)
-if (isset($_POST['getPlaylist'])) {
+if (isset($_POST['getPlaylistNew'])) {
     // Retrieve the playlists from the database ordered by position
-    $category_id = $_POST['getPlaylist'];
+    $category_id = $_POST['getPlaylistNew'];
     $sql = "SELECT * FROM `playlist` WHERE `category_id` = '$category_id' ORDER BY `position` ASC";
     $result = mysqli_query($conn, $sql);
 
     // Generate the HTML table using the retrieved data
-    $html = '<table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">S.No</th>
-                  <th scope="col">Video Name</th>
-                  <th scope="col">Position</th>
-                  <th scope="col">Up</th>
-                  <th scope="col">Down</th>
-                </tr>
-              </thead>
-              <tbody>';
-
+    $html = '';
     $num_rows = mysqli_num_rows($result);
-    $sno = 1;
+
     while ($row = mysqli_fetch_assoc($result)) {
-        $html .= '<tr>
-                    <th scope="row">' . $sno . '</th>
-                    <td class="font-weight-bold">' . $row['title'] . '</td>
-                    <td>' . $row['position'] . '</td>';
-
-        // Check if the playlist is not the only row in the table
-        if ($num_rows > 1) {
-            // Check if the playlist is not at the top (position 1)
-            if ($row['position'] != 1) {
-                $html .= '<td><a onclick="movePlaylist(\'id=' . $row['id'] . '&direction=up&category_id=' . $category_id . '\')"><i class="fa fa-2x fa-arrow-up"></i></a></td>';
-            } else {
-                // Send the first row to the last position if its up arrow is clicked
-                $html .= '<td><a onclick="movePlaylist(\'id=' . $row['id'] . '&direction=last&category_id=' . $category_id . '\')"><i class="fa fa-2x fa-arrow-up"></i></a></td>';
-            }
-
-            // Check if the playlist is not at the bottom (last position)
-            if ($row['position'] != $num_rows) {
-                $html .= '<td><a onclick="movePlaylist(\'id=' . $row['id'] . '&direction=down&category_id=' . $category_id . '\')"><i class="fa fa-2x fa-arrow-down"></i></a></td>';
-            } else {
-                // Send the last row to the first position if its down arrow is clicked
-                $html .= '<td><a onclick="movePlaylist(\'id=' . $row['id'] . '&direction=first&category_id=' . $category_id . '\')"><i class="fa fa-2x fa-arrow-down"></i></a></td>';
-            }
-        } else {
-            // Only one row, don't show any arrows
-            $html .= '<td></td><td></td>';
+        if($row['thumbnail'] == ""){
+            $row['thumbnail'] = $home_url."img/thumbnail.jpg";
         }
-
-        $html .= '</tr>';
-        $sno++;
+        $html .= '  
+        <li id="'.$row['id'].'" class="btn btn-primary p-1 d-flex justify-content-center" style="margin: 10px 0;">
+            <div class="media align-items-center">
+                <img src="'.$row['thumbnail'].'" class="mr-3 img-fluid" style="max-width: 150px;" alt="Playlist item image">
+                <div class="media-body">
+                   <h5 class="mt-0 mb-1">'.$row['title'].'</h5>
+                </div>
+            </div>
+        </li>';
     }
-
-    $html .= '</tbody></table>';
-
-    // Output the generated HTML table
+    // Output the generated HTML list
     echo $html;
 }
 
-// Arrange Video
-if (isset($_GET['id']) && isset($_GET['direction']) && isset($_GET['category_id'])) {
-    // Sanitize input values
-    $id = mysqli_real_escape_string($conn, $_GET['id']);
-    $category_id = mysqli_real_escape_string($conn, $_GET['category_id']);
+//Sort Playlist
+if (isset($_POST['sort_playlist'])) {
+    $category_id = $_POST['sort_playlist'];
+    $sort_data = $_POST['sort_data'];
 
-    // Get the current position of the selected playlist
-    $sql = "SELECT `position` FROM `playlist` WHERE `category_id` = $category_id AND `id` = $id";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    $current_position = $row['position'];
-
-    // Get the total number of playlists
-    $sql = "SELECT COUNT(*) AS `count` FROM `playlist` WHERE `category_id` = $category_id";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    $total_playlists = $row['count'];
-
-    // Calculate the new position based on the direction
-    switch ($_GET['direction']) {
-        case 'up':
-            $new_position = $current_position - 1;
-            break;
-        case 'down':
-            $new_position = $current_position + 1;
-            break;
-        case 'first':
-            $new_position = 1;
-            break;
-        case 'last':
-            $new_position = $total_playlists;
-            break;
+    foreach($sort_data as $key => $value){
+        $sql = "UPDATE `playlist` SET `position` = ($key+1) WHERE `category_id` = $category_id AND `id` = $value";
+        $result = mysqli_query($conn, $sql);
     }
-
-    // Make sure the new position is within the bounds of the playlist
-    if ($new_position < 1) {
-        $new_position = $total_playlists;
-    } elseif ($new_position > $total_playlists) {
-        $new_position = 1;
-    }
-
-    // Update the positions of the affected playlists
-    if ($current_position != $new_position) {
-        if ($current_position < $new_position) {
-            $sql = "UPDATE `playlist` SET `position` = (`position` - 1) WHERE `category_id` = $category_id AND `position` > $current_position AND `position` <= $new_position";
-        } else {
-            $sql = "UPDATE `playlist` SET `position` = (`position` + 1) WHERE `category_id` = $category_id AND `position` >= $new_position AND `position` < $current_position";
-        }
-        mysqli_query($conn, $sql);
-
-        $sql = "UPDATE `playlist` SET `position` = $new_position WHERE `id` = $id";
-        mysqli_query($conn, $sql);
-    }
-
-    if ($result) {
-        echo "Success";
-    } else {
-        echo "We could not update the record successfully" . mysqli_error($conn);
-    }
+    echo "Sort Done";
 }
 
+//Sort Category
+if (isset($_POST['sort_category_data'])) {
+    $sort_data = $_POST['sort_category_data'];
 
-// Arrange Category
-if (isset($_POST['move_up']) || isset($_POST['move_down'])) {
-    $category_id = $_POST['move_up'] ?? $_POST['move_down'];
-    $direction = isset($_POST['move_up']) ? 'up' : 'down';
-
-    // Get the current position of the selected category
-    $sql = "SELECT `position` FROM `category` WHERE `category_id` = " . $category_id;
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    $current_position = $row['position'];
-
-    // Get the total number of categories
-    $sql = "SELECT COUNT(*) AS `count` FROM `category`";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    $total_categories = $row['count'];
-
-    // Calculate the new position based on the direction
-    if ($direction == 'up') {
-        $new_position = ($current_position == 1) ? $total_categories : ($current_position - 1);
-    } else {
-        $new_position = ($current_position == $total_categories) ? 1 : ($current_position + 1);
+    foreach($sort_data as $key => $value){
+        $sql = "UPDATE `category` SET `position` = ($key+1) WHERE `category_id` = $value";
+        $result = mysqli_query($conn, $sql);
     }
-
-    // Use a transaction to ensure all the updates are performed atomically
-    mysqli_begin_transaction($conn);
-
-    // Update the positions of the affected categories
-    if ($current_position != $new_position) {
-        if ($current_position < $new_position) {
-            $sql = "UPDATE `category` SET `position` = (`position` - 1) WHERE `position` > " . $current_position . " AND `position` <= " . $new_position . " AND `category_id` != " . $category_id;
-        } else {
-            $sql = "UPDATE `category` SET `position` = (`position` + 1) WHERE `position` >= " . $new_position . " AND `position` < " . $current_position . " AND `category_id` != " . $category_id;
-        }
-        mysqli_query($conn, $sql);
-
-        $sql = "UPDATE `category` SET `position` = " . $new_position . " WHERE `category_id` = " . $category_id;
-        mysqli_query($conn, $sql);
-    }
-
-    if (mysqli_commit($conn)) {
-        echo "Success";
-        header('Location: sort_category.php');
-    } else {
-        mysqli_rollback($conn);
-        echo "We could not update the record successfully" . mysqli_error($conn);
-    }
+    echo "Sort Done";
 }

@@ -436,39 +436,19 @@ function selectAll() {
 
 }
 
+
 // List Playlist
 function listPlaylist() {
 console.log("clicked")
-
             let categoryId = $("#modalSelector option:selected").val();
+            $("#category_id").val(categoryId)
             console.log(categoryId)
             $.post("backend.php",
                 {
-                    getPlaylist: categoryId
+                    getPlaylistNew: categoryId
                 },
                 function (data) {
                     $("#listData").html(data) 
-                    console.log(data)
-
+                    // console.log(data)
                 });
-
 }
-
-// Move Playlist
-function movePlaylist(url) {
-console.log("clicked")
-
-            $.get(`backend.php?${url}`,
-                {},
-                function (data) {
-                   
-                       $("#listData").html("") 
-                    $("#listData").html(data) 
-                    listPlaylist()  
-                    
-                    
-                });
-                
-}
-
-

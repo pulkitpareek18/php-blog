@@ -1,4 +1,5 @@
 <?php
+include "loginCheck.php";
 include "../dbconnect.php";
 
 $sql = "SELECT * FROM `category` ORDER BY `category_id` ASC";
