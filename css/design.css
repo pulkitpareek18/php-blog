@@ -4,8 +4,8 @@
 
 /* ::-webkit-scrollbar {
     display: none;
-} */
-
+} 
+*/
 
 .playlist::-webkit-scrollbar {
     display: none !important;
@@ -434,4 +434,13 @@ h1:hover {
 #closeSidebar img{
     width: 10vw;
     padding: 1vw;
+}
+
+/* Will use class to make the navbar fullsize when searched through mobiles, handled in JS */
+nav #nav .navbarFull{
+    max-width: 98vw !important;
+}  
+/* Hide header image and sidebar open icon */
+nav #nav .hideHeaderIcons {
+    display: none !important;
 }

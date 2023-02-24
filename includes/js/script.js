@@ -7,7 +7,7 @@ const icon = searchWrapper.querySelector(".icon");
 let linkTag = searchWrapper.querySelector("a");
 let webLink;
 
-let homeUrl = "http://localhost/blog/"
+let homeUrl = "https://iblog.rf.gd/"
 
 // Set up options for fuzzy search
 const options = {
@@ -101,3 +101,24 @@ $("#openSidebar").click(function(){
 $("#closeSidebar").click(function(){
   $("#sidebar").css("width","0vw");
 })
+
+//Header Size CSS
+const input = document.querySelector('.wrapper input');
+const searchBox = document.querySelector('.searchBox');
+const headerImage = document.querySelector('#nav img');
+const openSidebar = document.getElementById('openSidebar');
+  input.addEventListener('input', function() {
+    if(window.innerWidth <= 820){
+      if (input.value!="") {
+        input.classList.add('navbarFull');
+        searchBox.classList.add('navbarFull');
+        headerImage.classList.add('hideHeaderIcons');
+        openSidebar.classList.add('hideHeaderIcons');
+      }else{
+        input.classList.remove('navbarFull');
+        searchBox.classList.remove('navbarFull');
+        headerImage.classList.remove('hideHeaderIcons');
+        openSidebar.classList.remove('hideHeaderIcons');
+      }
+    }
+  });

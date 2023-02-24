@@ -102,12 +102,12 @@
   background: white !important;
   align-items: center;
   padding: 0vw;
-  max-height: 40vw !important;
+  max-height: 40vw;
   overflow: auto;
   position: relative;
   max-width: inherit;
   width: -webkit-fill-available;
-  border-radius: 0vw 0vw 0.5vw 0.5vw;
+  border-radius: 0vw 0vw 5px 5px;
 }
 
 .search-input.active .autocom-box{
@@ -129,7 +129,7 @@
   padding: 0.5vw 0.5vw 0.5vw 0.5vw;
   max-width: inherit;
   width: -webkit-fill-available;
-  font-size: 1.1vw !important;
+  font-size: 1.1vw;
 }
 
 .search-input.active .autocom-box li{
