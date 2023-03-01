@@ -223,13 +223,13 @@ if (isset($_GET['slug'])) {
                             echo '  <a href="' . $home_url . "play/" . $slug . '">
                                 <li class="videos selected">
                                 <img src="' . $image_source . '" alt="">
-                                </li><p><b style="color: #10e7bf;">' . (int)($index+1) .'.</b> '. $title . '</p></a>';
+                                </li><p><b style="color: #10e7bf;">' . (int)($index+1) .')&nbsp;</b> '. $title . '</p></a>';
                         } else {
 
                             echo '   <a href="' . $home_url . "play/" . $slug . '">
                                 <li class="videos">
                                 <img src="' . $image_source . '" alt="">
-                                </li><p><b style="color: #10e7bf;">' . (int)($index+1) .'.</b> '. $title . '</p></a>';
+                                </li><p><b style="color: #10e7bf;">' . (int)($index+1) .')&nbsp;</b> '. $title . '</p></a>';
                         }
                     }else{
                         // It will display video title on the thumbnail image
