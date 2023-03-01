@@ -190,21 +190,21 @@ session_start();
           $text;
           while ($row = mysqli_fetch_assoc($result)) 
           {
-            $delete_function="deleteVideo(".$row['id'].",\"".$row['title']."\")";
+            $delete_function="deleteVideo(".$row['id'].",`".htmlspecialchars($row['title'],ENT_QUOTES)."`)";
             // If Video Not Hidden
             if($row['hidden']==0){
-                $function="hideVideo(".$row['id'].",\"".$row['title']."\")";
+                $function="hideVideo(".$row['id'].",`".htmlspecialchars($row['title'],ENT_QUOTES)."`)";
                 $text="Hide";
                 }else{
                   // If Video Hidden
-                  $function="unhideVideo(".$row['id'].",\"".$row['title']."\")";
+                  $function="unhideVideo(".$row['id'].",`".htmlspecialchars($row['title'],ENT_QUOTES)."`)";
                   $text="Un&#8209;Hide"; 
                 }
                 $sno = $sno + 1;
                 echo "<tr>
                       <th class='d-flex flex-align-center justify-content-start' scope='row'>
                         <div class='form-check'>
-                          <input class='form-check-input multiple_selector' id='".$row['id']."' title='".$row['title']."' type='checkbox' value='1'>
+                          <input class='form-check-input multiple_selector' id='".$row['id']."' title='".htmlspecialchars($row['title'],ENT_QUOTES)."' type='checkbox' value='1'>
                         </div>"
                       . $sno . "</th>
                       <td>" . $row['title'] . "</td>

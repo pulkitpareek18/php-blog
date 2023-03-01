@@ -127,21 +127,21 @@
       $function;
       $text;
       while ($row = mysqli_fetch_assoc($result)) {
-        $delete_function = "deletePlaylist(" . $row['category_id'] . ",\"" . $row['category_name'] . "\")";
+        $delete_function = "deletePlaylist(" . $row['category_id'] . ",\"" . htmlspecialchars($row['category_name'],ENT_QUOTES) . "\")";
         // If Playlist Not Hidden
         if ($row['hidden'] == 0) {
-          $function = "hidePlaylist(" . $row['category_id'] . ",\"" . $row['category_name'] . "\")";
+          $function = "hidePlaylist(" . $row['category_id'] . ",\"" . htmlspecialchars($row['category_name'],ENT_QUOTES) . "\")";
           $text = "Hide";
         } else {
           // If Playlist Hidden
-          $function = "unhidePlaylist(" . $row['category_id'] . ",\"" . $row['category_name'] . "\")";
+          $function = "unhidePlaylist(" . $row['category_id'] . ",\"" . htmlspecialchars($row['category_name'],ENT_QUOTES) . "\")";
           $text = "Un-Hide";
         }
         $sno = $sno + 1;
         echo "<tr>
                 <th class='d-flex flex-align-center justify-content-start' scope='row'>
                   <div class='form-check'>
-                    <input class='form-check-input multiple_selector' id='" . $row['category_id'] . "' title='" . $row['category_name'] . "' type='checkbox' value='1'>
+                    <input class='form-check-input multiple_selector' id='" . $row['category_id'] . "' title='" . htmlspecialchars($row['category_name'],ENT_QUOTES) . "' type='checkbox' value='1'>
                   </div>"
                   . $sno . "
                 </th>

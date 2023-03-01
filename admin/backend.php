@@ -122,6 +122,7 @@ if (isset($_POST['title'])) {
     $thumbnail_url = $_POST["imageUrl"];
     //TO INSERT ANY TYPE OF CONTENT LIKE SOURCE CODE
     $content = mysqli_real_escape_string($conn, $content);
+    $title = mysqli_real_escape_string($conn, $title);
     $category = $_POST["catid"];
     $slug = $_POST["slug"];
     $url = $_POST["url"];
@@ -155,6 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Update the record
         $id = $_POST["id_edit"];
         $title = $_POST["title_edit"];
+        $title = mysqli_real_escape_string($conn, $title);
         $content = $_POST["content"];
         $content = mysqli_real_escape_string($conn, $content);
         $slug = $_POST["slug"];
@@ -377,7 +379,9 @@ All Playlist Functions
 // Create Playlist
 if (isset($_POST['playlist'])) {
     $playlist_name = $_POST['playlist'];
+    $playlist_name = mysqli_real_escape_string($conn, $playlist_name);
     $playlist_desc = $_POST['description'];
+    $playlist_desc = mysqli_real_escape_string($conn, $playlist_desc);
     // $playlist_url = $_POST['url'];
     $image_url = $_POST['img'];
     $hidden = $_POST['hidden'];

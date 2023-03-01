@@ -7,7 +7,9 @@ include "../dbconnect.php";
         // Update the record
         $id = $_POST["id"];
         $name = $_POST["name"];
+        $name = mysqli_real_escape_string($conn, $name);
         $desc = $_POST["desc"];
+        $desc = mysqli_real_escape_string($conn, $desc);
         $img_url = $_POST["img"];
         $hidden = $_POST["hidden"];
         // Sql query to be executed
