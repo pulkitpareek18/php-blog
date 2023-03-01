@@ -223,13 +223,13 @@ if (isset($_GET['slug'])) {
                             echo '  <a href="' . $home_url . "play/" . $slug . '">
                                 <li class="videos selected">
                                 <img src="' . $image_source . '" alt="">
-                                </li><p>' . (int)($index+1) .'. '. $title . '</p></a>';
+                                </li><p><b style="color: #10e7bf;">' . (int)($index+1) .'.</b> '. $title . '</p></a>';
                         } else {
 
                             echo '   <a href="' . $home_url . "play/" . $slug . '">
                                 <li class="videos">
                                 <img src="' . $image_source . '" alt="">
-                                </li><p>' . (int)($index+1) .'. '. $title . '</p></a>';
+                                </li><p><b style="color: #10e7bf;">' . (int)($index+1) .'.</b> '. $title . '</p></a>';
                         }
                     }else{
                         // It will display video title on the thumbnail image
@@ -324,5 +324,5 @@ if (isset($_GET['slug'])) {
 <script src="<?php echo $home_url ?>includes/js/script.js"></script>
 <script src="<?php echo $home_url ?>js/jquery.js"></script>
 </body>
-<!-- version 24-2-2023 -->
+<!-- version 01-03-2023 -->
 </html>
