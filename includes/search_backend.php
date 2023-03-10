@@ -9,7 +9,7 @@ SELECT `category_name` AS `title`, `category_slug` AS `slug` FROM `category` WHE
 $result = mysqli_query($conn, $sql);
 $rows = array();
 while ($row = mysqli_fetch_assoc($result)) {
-    $rows[] = array('title' => $row['title'], 'slug' => $row['slug']);
+    $rows[] = array('title' => html_entity_decode($row['title']), 'slug' => $row['slug']);
 }
 echo json_encode($rows);
 ?>
