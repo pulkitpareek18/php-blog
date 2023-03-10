@@ -108,19 +108,29 @@ $playlist_id = $_GET["playlist_id"];
         $video_id = $item->snippet->resourceId->videoId;
         $title_raw = $item->snippet->title;
         $title = mysqli_real_escape_string($conn, $item->snippet->title);
-        $description = mysqli_real_escape_string($conn, $item->snippet->description);
-        $thumbnail_url = $item->snippet->thumbnails->medium->url;
-        $description = $item->snippet->description;
-        $description = "<p>".format_description($description)."</p>";
         $slug = slugify($title);
+        $title =  htmlspecialchars($title,ENT_QUOTES);
+        $description = $item->snippet->description;
+        $description =  htmlspecialchars($description,ENT_QUOTES);
+        $description = "<p>".format_description($description)."</p>";
+        $thumbnail_url = $item->snippet->thumbnails->medium->url;
+
+        echo $title_raw;
+        echo $title;
+        echo $slug;
+        echo $thumbnail_url;
+        echo "<br>";
+        echo "<br>";
 
         if($title_raw == "Private video"){
+            echo "private";
             continue; //Do Nothing
         } 
         else{
             $new_position = incrementVideoPosition($category_id);
             $sql = "INSERT INTO playlist (title, category_id, slug, category_name, player_url, thumbnail, content, position) VALUES ('$title', '$category_id', '$slug', '$category_name', 'https://www.youtube.com/embed/$video_id', '$thumbnail_url', '$description', '$new_position') ON DUPLICATE KEY UPDATE title='$title', category_id='$category_id', slug='$slug', category_name='$category_name', player_url='https://www.youtube.com/embed/$video_id', thumbnail='$thumbnail_url', content='$description'";
-            mysqli_query($conn, $sql);
+            $result = mysqli_query($conn, $sql);
+            echo mysqli_error($conn);
         }
         
         }
